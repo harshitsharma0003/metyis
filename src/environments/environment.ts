@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-   apiGatewayUrl: 'http://localhost:8238/v1/',
-  authGatewayUrl: 'http://localhost:8238/auth/',
+   apiGatewayUrl: 'http://3.142.152.222:8238/v1/',
+  authGatewayUrl: 'http://3.142.152.222:8238/auth/',
 };
 
 
