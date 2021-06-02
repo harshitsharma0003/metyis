@@ -1,0 +1,81 @@
+<div class="d-flex">
+  <div class="first-container">
+    <div class="w-75 d-flex justify-content-center flex-column align-items-center" style="left: 7.22%;
+    right: 63.54%;
+    top: 35%;
+    bottom: 35%;">
+      <div class="w-50 mb-4">
+        <h3 class="font-weight-bold mb-5" style="font-family: Montserrat;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 900;
+        line-height: 28px;
+        letter-spacing: 0px;
+        text-align: left;
+        ">Welcome to Aurora</h3>
+        <p style="font-family: Montserrat;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-align: left;
+        ">Aurora is a first step towards the future of demand planning at Carlsberg. Aurora encapsulates the
+          sophistication of machine learning and helps incorporating it into a plan with the help of a UI.
+          Choose the SKU’s, desired time horizon to create your demand forecasts. Make your plans, create scenarios.
+          Save them, revise them, edit them, share them and much more…</p>
+      </div>
+
+    </div>
+  </div>
+  <div class="login-container">
+    <div class="w-50">
+      <img src="assets/images/login text.png">
+      <p
+        style="font-family: Montserrat;font-size: 24px;font-weight: 900; margin-top: 49px; font-style: normal; line-height: 28px; margin-bottom: 24px;">
+        Log In</p>
+      <div>
+        <form #loginForm="ngForm">
+          <div class="form-group">
+            <label for="username" style="font-family: Montserrat;
+           
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+line-height: 16px;
+letter-spacing: 0px;
+text-align: left;
+
+            ">
+              Username
+            </label>
+            <input type="text" name="username" class="form-control" id="username" placeholder="Enter your username"
+              ngModel #username required>
+          </div>
+          <div class="form-group">
+            <label for="password" style="font-family: Montserrat;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 16px;
+            letter-spacing: 0px;
+            text-align: left;
+            ">
+              Password
+            </label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password"
+              ngModel #username required>
+          </div>
+          <div>
+            <button type="submit" [disabled]="!loginForm.valid" class="btn"
+              style="background-color: #D5DBE2;float: right;" [class.disabled]="!loginForm.valid"
+              (click)="login(loginForm.value)">Login</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+  rel="stylesheet">

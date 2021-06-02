@@ -1,0 +1,18 @@
+.first-container {
+  min-height: 100vh;
+  width: 60%!important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #212833;
+  color: white;
+}
+
+.login-container { 
+  min-height: 135vh;
+  width:40%!important;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
