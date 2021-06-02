@@ -1,0 +1,1483 @@
+<script async lang="javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.7.9/angular-locale_en-de.min.js"></script>
+<div id="content" (click)="unexpanded_out()">
+  <div *ngIf="loading"
+    style="position: absolute; background-color: rgba(255, 255, 255, 0.6); width: 100%; height: 100%; z-index: 100000">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+      <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif" alt="Smiley facg">
+    </div>
+  </div>
+  <div class="heading">
+    <h2 class="mr-auto headingtitle" style="padding-top:10px;padding-bottom:10px;margin-bottom:24px !important">Plan
+      Demand</h2>
+    <svg (click)="expandLeftComponent()" style="cursor:pointer;margin-right: 24px !important;margin-top:32px !important;margin-bottom:24px"
+      class="ml-auto headingicon" width="46" height="46" viewBox="0 0 46 46" fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0)">
+        <rect x="23" y="0.373047" width="32" height="32" rx="16" transform="rotate(45 23 0.373047)" fill="#212833" />
+        <rect x="23" y="11.6865" width="16" height="16" transform="rotate(45 23 11.6865)" fill="white"
+          fill-opacity="0.01" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M21.3517 18.6594C21.0548 18.6594 20.906 19.0184 21.116 19.2284L26.7729 24.8852C26.9829 25.0952 27.3419 24.9465 27.3419 24.6495L27.3419 18.9927C27.3419 18.8086 27.1927 18.6594 27.0086 18.6594H21.3517ZM24.1802 27.8113C24.4771 27.8113 24.6259 27.4523 24.4159 27.2423L18.759 21.5854C18.549 21.3754 18.19 21.5241 18.19 21.8211L18.19 27.478C18.19 27.6621 18.3392 27.8113 18.5233 27.8113H24.1802Z"
+          fill="white" />
+      </g>
+      <defs>
+        <clipPath id="clip0">
+          <rect width="32" height="32" fill="white" transform="translate(23 0.373047) rotate(45)" />
+        </clipPath>
+      </defs>
+    </svg>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-8" id="maincontent" style="padding-right: 12px !important; padding-left: 24px !important;">
+        <div class="content-col" id="upper_middle" style="margin-bottom: .0rem!important;">
+          <div class="d-flex  mt-2 ffbox" style="background: inherit;border-radius: 6px;">
+            <div class="ffitem" style="width: 16.5%;">
+              <h6 class="mt-3" style="font-size: 12px !important;line-height: 16px;margin-top: 0px !important">Actuals
+              </h6>
+              <input type="week" value="2019-W38" id="prevactuals" [(ngModel)]="prevactuals" (change)="color_change1()"
+                name="prevactuals" style="width: 100%;">
+            </div>
+            <div class="ffitem" style="margin-left: 12px; width: 16.5%;">
+              <h6 class="mt-3"
+                style="font-size: 12px !important;line-height: 16px;width: 109px;margin-top: 0px !important">Plan</h6>
+              <input type="week" id="endWeek" name="endWeek" [(ngModel)]="endWeek" (change)="color_change1()" required
+                style="width: 100%;">
+            </div>
+            <div class="ffitem" style="margin-left: 12px;width: 8.25%;">
+              <h6 class="mt-3" style="font-size: 12px !important;line-height: 16px;margin-top: 0px !important">Load Week
+              </h6>
+              <button style="font-size: 14px !important; line-height: 18px; width: 100%;">{{theLoadWeek}}</button>
+            </div>
+            <div class="ffitem" title="View whole 2020" style="margin-left: 12px;width: 8.25%;">
+              <h6 class="mt-3" style="font-size: 12px !important;line-height: 16px;margin-top: 0px !important">Go To
+                Year</h6>
+              <app-special-select selectName="Year" [selectItems]="selectyear" (selectionMadeEvent)="goToYear($event)"></app-special-select>
+           </div>
+            <div class="ffitem" style="margin-left: 24px;width: 8.25%;">
+              <h6 class="mt-3" style="font-size: 12px !important;line-height: 16px;margin-top: 0px !important">UOM</h6>
+              <app-special-select selectName="HL" [selectItems]="selectuom" (selectionMadeEvent)="checkratio($event)"></app-special-select>
+           </div>
+            <div class="ffitem" style="margin-left: 12px;width: 16%;">
+              <h6 class="mt-3" style="font-size: 12px !important;line-height: 16px;margin-top: 0px !important">
+                Granularity</h6>
+              <app-special-select selectName="Weekly View" [selectItems]="selectgran" (selectionMadeEvent)="changeGran($event)"></app-special-select>
+            </div>
+            <div class="ffitem" style="margin-left: 12px;width: 16%;">
+              <h6 class="mt-3" style="font-size: 12px !important;line-height: 16px;margin-top: 0px !important">Views
+              </h6>
+              <app-special-select selectName="Aggregated" [selectItems]="selectview" (selectionMadeEvent)="changeView($event)"></app-special-select>
+            </div>
+            <div class="ffitem" style="margin-left: 24px; width: 5.5%;">
+              <h6 class="mt-3 font-weight-bold"
+                style="font-size: 12px !important;line-height: 16px;margin-top:0px!important;">Save</h6>
+               <img style="cursor:pointer;width: 48px;
+              height: 48px;" data-toggle="modal" data-target="#saveAPlansModal" src="assets/images/save.png">
+            </div>
+          </div>
+        </div>
+        <div class="content-col" id="middle">
+          <div class="bg-white shadow"
+            style="margin-top: 32px; border-radius: 6px;margin-bottom: 32px !important;padding-top: 24px;"
+            *ngIf="table_up">
+            <div class="d-flex justify-content-between align-items-center"
+              style="margin-bottom: 24px;margin-left: 24px;margin-right: 24px;">
+              <p class="font-weight-bold"
+                style="margin-left: 0px; margin-top: 0px;margin-bottom: 0px; font-family: 'Montserrat', sans-serif !important; font-size: 18px;line-height: 22px;"
+                id="planningtable" [innerText]="planningtable"></p>
+              <div class="form-group m-0">
+                <svg (click)="aggrid2excel()" style="cursor:pointer;" width="40" height="40" viewBox="0 0 40 40"
+                  fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="0.5" y="0.5" width="39" height="39" stroke="#212833" />
+                  <rect x="11" y="10" width="18" height="18.6598" fill="white" fill-opacity="0.01" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M25.3422 19.3357L20.6723 23.9615C20.2928 24.3224 19.7072 24.3224 19.3277 23.9615L14.6578 19.3357C14.4772 19.1593 14.375 18.9143 14.375 18.6582C14.375 18.402 14.4772 18.1571 14.6578 17.9807C15.0386 17.6139 15.6307 17.6139 16.0115 17.9807L19.0369 20.9898V10.9906C19.0369 10.4435 19.4681 10 20 10C20.5319 10 20.9631 10.4435 20.9631 10.9906V20.9898L23.9885 17.9807C24.371 17.6185 24.9597 17.6185 25.3422 17.9807C25.5228 18.1571 25.625 18.402 25.625 18.6582C25.625 18.9143 25.5228 19.1593 25.3422 19.3357ZM27.2 25.7764V20.5864C27.2 19.9929 27.6029 19.5119 28.1 19.5119C28.5971 19.5119 29 19.9929 29 20.5864V25.7764C29 27.5567 27.7912 29 26.3 29H13.7C12.2088 29 11 27.5567 11 25.7764V20.5864C11 19.9929 11.4029 19.5119 11.9 19.5119C12.3971 19.5119 12.8 19.9929 12.8 20.5864V25.7764C12.8 26.3698 13.2029 26.8509 13.7 26.8509H26.3C26.7971 26.8509 27.2 26.3698 27.2 25.7764Z"
+                    fill="#212833" />
+                </svg>
+              </div>
+            </div>
+            <ag-grid-angular
+              style="height: 75.2vh; margin-right: 24px; margin-left: 24px; border-left: 1px ridge; border-right: 1px ridge;"
+              class="ag-theme-alpine" [rowData]="rowData" *ngIf="first_ag" rowSelection="multiple"
+              [suppressRowClickSelection]="true" [columnDefs]="columnDefs" [undoRedoCellEditing]="true"
+              rowSelection="multiple" [getRowHeight]="getRowHeight" [suppressLastEmptyLineOnPaste]="true"
+               [statusBar]="statusBar" [suppressMakeColumnVisibleAfterUnGroup]="true"
+              (cellValueChanged)="onCellValueChanged($event)" (cellClicked)="onCellClicked($event)"
+              (cellDoubleClicked)="onCellDoubleClicked($event)" (pasteStart)="onPasteStart($event)"
+              (pasteEnd)="onPasteEnd($event)" [autoGroupColumnDef]="autoGroupColumnDef" [groupMultiAutoColumn]="true"
+              [getRowNodeId]="getRowNodeId"  [enableRangeSelection]="true"
+              [statusBar]="statusBar" [autoGroupColumnDef]="autoGroupColumnDef" [suppressDragLeaveHidesColumns]="false"
+              (gridReady)="onGridReady($event)" [getRowHeight]="getRowHeight1"
+              (firstDataRendered)="firstDataRendered($event)" (modelUpdated)="firstDataRendered($event)"
+              (rowDataUpdated)="firstDataRendered($event)" (newColumnsLoaded)="firstDataRendered($event)"
+              (displayedColumnsChanged)="firstDataRendered($event)" (virtualColumnsChanged)="firstDataRendered($event)">
+            </ag-grid-angular>
+            <!--aggregated month-->
+            <ag-grid-angular
+              style=" height: 500px; margin-right: 24px; margin-left: 24px; border-left: 1px ridge; border-right: 1px ridge;"
+              class="ag-theme-alpine" [rowData]="rowData" *ngIf="fourth_ag" rowSelection="multiple"
+              [columnDefs]="columnDefs" rowSelection="multiple" [suppressRowClickSelection]="true"
+              [suppressLastEmptyLineOnPaste]="true"  [statusBar]="statusBar"
+              [undoRedoCellEditing]="true" [getRowHeight]="getRowHeight" [suppressMakeColumnVisibleAfterUnGroup]="true"
+              (cellValueChanged)="onCellValueChanged($event)" (pasteStart)="onPasteStart($event)"
+              (pasteEnd)="onPasteEnd($event)" [autoGroupColumnDef]="autoGroupColumnDef" [groupMultiAutoColumn]="true"
+              [getRowNodeId]="getRowNodeId"  [enableRangeSelection]="true"
+              [statusBar]="statusBar" [autoGroupColumnDef]="autoGroupColumnDef" [suppressDragLeaveHidesColumns]="false"
+              (gridReady)="onGridReady($event)" (firstDataRendered)="firstDataRendered($event)"
+              (modelUpdated)="firstDataRendered($event)" (rowDataUpdated)="firstDataRendered($event)"
+              (newColumnsLoaded)="firstDataRendered($event)" (displayedColumnsChanged)="firstDataRendered($event)"
+              (virtualColumnsChanged)="firstDataRendered($event)">
+            </ag-grid-angular>
+            <!--detailed and detailed material-->
+            <ag-grid-angular
+              style="height: 500px; margin-right: 24px; margin-left: 24px; border-left: 1px ridge; border-right: 1px ridge;"
+              class="ag-theme-alpine" [rowData]="rowData5" rowSelection="multiple" [columnDefs]="columnDefs5"
+              rowSelection="multiple" [undoRedoCellEditing]="true" [suppressRowClickSelection]="true"
+              [suppressLastEmptyLineOnPaste]="true" *ngIf="second_ag" [rowGroupPanelShow]="rowGroupPanelShow"
+              [statusBar]="statusBar" [autoGroupColumnDef]="autoGroupColumnDef" [enableRangeSelection]="true"
+              [statusBar]="statusBar" (firstDataRendered)="firstDataRenderedDetailedViews($event)"
+              (modelUpdated)="firstDataRenderedDetailedViews($event)"
+              (rowDataUpdated)="firstDataRenderedDetailedViews($event)"
+              (newColumnsLoaded)="firstDataRenderedDetailedViews($event)"
+              (displayedColumnsChanged)="firstDataRenderedDetailedViews($event)"
+              (virtualColumnsChanged)="firstDataRenderedDetailedViews($event)">
+            </ag-grid-angular>
+            <!--sku view-->
+            <ag-grid-angular
+              style=" height: 750px;margin-right: 24px; margin-left: 24px; border-left: 1px ridge; border-right: 1px ridge;"
+              class="ag-theme-alpine" [rowData]="rowData6" *ngIf="third_ag" rowSelection="multiple"
+              [columnDefs]="columnDefs6" rowSelection="multiple" [undoRedoCellEditing]="true"
+              [suppressRowClickSelection]="true" [suppressLastEmptyLineOnPaste]="true" 
+              [statusBar]="statusBar" [suppressMakeColumnVisibleAfterUnGroup]="true"
+              (cellValueChanged)="onCellValueChanged1($event)" (cellClicked)="onCellClicked($event)"
+              (cellDoubleClicked)="onCellDoubleClicked($event)" (pasteStart)="onPasteStart1($event)"
+              (pasteEnd)="onPasteEnd1($event)" [autoGroupColumnDef]="autoGroupColumnDef" [groupMultiAutoColumn]="true"
+              [getRowNodeId]="getRowNodeId"  [enableRangeSelection]="true"
+              [statusBar]="statusBar" [autoGroupColumnDef]="autoGroupColumnDef" [suppressDragLeaveHidesColumns]="false"
+              (gridReady)="onGridReady1($event)" (firstDataRendered)="firstDataRendered($event)"
+              (modelUpdated)="firstDataRendered($event)" (rowDataUpdated)="firstDataRendered($event)"
+              (newColumnsLoaded)="firstDataRendered($event)" (displayedColumnsChanged)="firstDataRendered($event)"
+              (virtualColumnsChanged)="firstDataRendered($event)">
+            </ag-grid-angular>
+            <p style="margin-left: 24px; font-family: Montserrat;font-size: 10px;font-weight: 400;line-height: 12px;">
+              Double click on a cell to add commments</p>
+            <div class="p-2 text-center">
+            </div>
+          </div>
+          <div class="bg-white rounded shadow mt-2" *ngIf="main_graph"
+            style="border-radius: 6px !important;padding-top: 24px; padding-bottom: 65px; margin-top: 32px;margin-bottom: 32px;">
+            <div class="d-flex justify-content-between align-items-center"
+              style="margin-bottom: 24px;margin-right: 24px;;margin-left: 24px;">
+              <p class="font-weight-bold" style="   font-family: Montserrat;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 22px;
+                margin-left: 0px; margin-top: 0px;margin-bottom: 0px;
+                " id="forecastinganalysis" [(ngModel)]="forecastinganalysis">Forecast Analysis (HL)
+              </p>
+              <div class="form-group m-0">
+              </div>
+              <div class="form-group m-0">
+                <svg (click)="download_graph()" style=" cursor:pointer;" width="40" height="40" viewBox="0 0 40 40"
+                  fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="0.5" y="0.5" width="39" height="39" stroke="#212833" />
+                  <rect x="11" y="10" width="18" height="18.6598" fill="white" fill-opacity="0.01" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M25.3422 19.3357L20.6723 23.9615C20.2928 24.3224 19.7072 24.3224 19.3277 23.9615L14.6578 19.3357C14.4772 19.1593 14.375 18.9143 14.375 18.6582C14.375 18.402 14.4772 18.1571 14.6578 17.9807C15.0386 17.6139 15.6307 17.6139 16.0115 17.9807L19.0369 20.9898V10.9906C19.0369 10.4435 19.4681 10 20 10C20.5319 10 20.9631 10.4435 20.9631 10.9906V20.9898L23.9885 17.9807C24.371 17.6185 24.9597 17.6185 25.3422 17.9807C25.5228 18.1571 25.625 18.402 25.625 18.6582C25.625 18.9143 25.5228 19.1593 25.3422 19.3357ZM27.2 25.7764V20.5864C27.2 19.9929 27.6029 19.5119 28.1 19.5119C28.5971 19.5119 29 19.9929 29 20.5864V25.7764C29 27.5567 27.7912 29 26.3 29H13.7C12.2088 29 11 27.5567 11 25.7764V20.5864C11 19.9929 11.4029 19.5119 11.9 19.5119C12.3971 19.5119 12.8 19.9929 12.8 20.5864V25.7764C12.8 26.3698 13.2029 26.8509 13.7 26.8509H26.3C26.7971 26.8509 27.2 26.3698 27.2 25.7764Z"
+                    fill="#212833" />
+                </svg>
+              </div>
+            </div>
+            <div id="chartContainer1"
+              style="height: 370px; width: 97%; border-radius: 6px !important;margin-right:125px;padding-left: 16px;padding-right: 24px;  zoom: 133% !important">
+            </div>
+            <div id="legends">
+              <ul id="legendList" class="stats_6"
+                style="list-style-type:none;float: right;padding-right: 24px;margin-bottom: 30px;">
+                <li style="display: flex; margin-right: 24px;  "> <label class="switch_10" for="checkbox">
+                    <input type="checkbox" id="checkbox" (change)="chart_slider_actuallastyear()" />
+                    <div class="slider_01 round" style="margin-top: 8px;"></div>
+                  </label>
+                  <span style=" margin-top: 7px;margin-left: 30px;font-family: Montserrat;
+                      font-size: 14px;
+                      font-weight: 400;
+                      line-height: 18px;
+                      ">Actual Last Year</span>
+                </li>
+                <li style="display: flex;margin-right: 24px; "> <label class="switch_10_2" for="checkbox_2">
+                    <input type="checkbox" id="checkbox_2" (change)="chart_slider_ml()" checked />
+                    <div class="slider_01_2 round" style="margin-top: 8px;"></div>
+                  </label>
+                  <span style=" margin-top:7px;margin-left:30px;font-size: 14px; font-weight: 400;line-height: 18px;">ML
+                    Forecast</span>
+                </li>
+                <li style="display: flex;margin-right: 24px; "><label class="switch_10_3" for="checkbox_3">
+                    <input type="checkbox" id="checkbox_3" (change)="chart_slider_apo()" />
+                    <div class="slider_01_3 round" style="margin-top: 8px;"></div>
+                  </label>
+                  <span
+                    style=" margin-top: 7px;font-size: 14px;margin-left: 30px; font-weight: 400;line-height: 18px;">APO
+                    Forecast</span>
+                </li>
+                <li style="display: flex; margin-right: 24px;"> <label class="switch_10_4" for="checkbox_4">
+                    <input type="checkbox" id="checkbox_4" (change)="chart_slider_final()" checked />
+                    <div class="slider_01_4 round" style="margin-top: 8px;"></div>
+                  </label>
+                  <span
+                    style=" margin-top: 7px;font-size: 14px;margin-left: 30px; font-weight: 400;line-height: 18px;">Final
+                    Forecast</span>
+                </li>
+                <li style="display: flex; padding-right: 0px;;"> <label class="switch_10_5" for="checkbox_5">
+                    <input type="checkbox" id="checkbox_5" (change)="chart_slider_actuals()" checked />
+                    <div class="slider_01_5 round" style="margin-top: 8px;"></div>
+                  </label>
+                  <span
+                    style=" margin-top: 7px;font-size: 14px;margin-left: 30px; font-weight: 400;line-height: 18px;">Actuals</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="bg-white shadow mt-2" style="border-radius: 6px;" *ngIf="table_down">
+            <div class="d-flex justify-content-between align-items-center p-1">
+              <div class="d-flex justify-content-between align-items-center ml-2 pt-2">
+                <p class="font-weight-bold" style="width: 20%;" id="planningtable" [innerText]="planningtable"
+                  style="margin-right:20px;font-family: 'Montserrat', sans-serif !important;"></p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </div>
+              <table style='font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 40%;margin-left: 17%'>
+                <tr>
+                  <td style="width: 20%;  text-align: center;">
+                    <p class="m-0 week-block" style="font-size: 0.7rem;  text-align: center;">Sum</p>
+                  </td>
+                  <td style="width: 20%;  text-align: center;">
+                    <p class="m-0 week-block" style="font-size: 0.7rem;  text-align: center;">Avg</p>
+                  </td>
+                  <td style="width: 20%;  text-align: center;">
+                    <p class="m-0 week-block" style="font-size: 0.7rem;  text-align: center;">Count</p>
+                  </td>
+                  <td style="width: 20%;  text-align: center;">
+                    <p class="m-0 week-block" style="font-size: 0.7rem;  text-align: center;">Max</p>
+                  </td>
+                  <td style="width: 20%;  text-align: center;">
+                    <p class="m-0 week-block" style="font-size: 0.7rem;  text-align: center;">Min</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 20%;  text-align: center;">
+                    <p class="m-0 week-block" [innerText]="sumselected" style="font-size: 0.7rem;  text-align: center;">
+                    </p>
+                  </td>
+                  <td style="width: 20%;  text-align: center;">
+                    <p class="m-0 week-block" [innerText]="avgselected" style="font-size: 0.7rem;  text-align: center;">
+                    </p>
+                  </td>
+                  <td style="width: 20%;  text-align: center;">
+                    <p class="m-0 week-block" [innerText]="countselected"
+                      style="font-size: 0.7rem;  text-align: center;">
+                    </p>
+                  </td>
+                  <td style="width: 20%;  text-align: center;">
+                    <p class="m-0 week-block" [innerText]="maxselected" style="font-size: 0.7rem;  text-align: center;">
+                    </p>
+                  </td>
+                  <td style="width: 20%;  text-align: center;">
+                    <p class="m-0 week-block" [innerText]="minselected" style="font-size: 0.7rem;  text-align: center;">
+                    </p>
+                  </td>
+                </tr>
+              </table>
+              <div class="form-group m-0">
+              </div>
+              <div class="form-group m-0">
+                <span class="input-group-text" style="float: right !important;margin-right:20px"><i
+                    (click)="table_down_click()" class="fa fa-clone"></i></span>
+                <span class="input-group-text" style="float: right !important;margin-right:15px"><i (click)="down()"
+                    class="fa fa-download"></i></span>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="table-header-col">
+                <table>
+                  <thead>
+                    <tr class="header-text invisible">
+                      <th class="font-weight-bold">
+                        <p class="m-0 week-block"> XXXX</p>
+                      </th>
+                    </tr>
+                    <tr class="header-text">
+                      <th class="font-weight-bold">
+                        <p class="m-0 week-block" style="color: #17b169">Final Forecast</p>
+                      </th>
+                    </tr>
+                    <tr class="header-text">
+                      <th class="font-weight-bold">
+                        <p class="m-0 week-block"> FVA</p>
+                      </th>
+                    </tr>
+                    <tr (click)="putValueInFinal('ML')" class="ml-text">
+                      <th class="font-weight-bold">
+                        <p class="m-0 week-block" style="color:#46a6b9"> ML Forecast</p>
+                      </th>
+                    </tr>
+                    <tr (click)="putValueInFinal('APO')" class="aop-text">
+                      <th class="font-weight-bold">
+                        <p class="m-0 week-block" style="color:#b49132">APO Forecast</p>
+                      </th>
+                    </tr>
+                    <tr class="actual-text">
+                      <th class="font-weight-bold">
+                        <p class="m-0 week-block" style="color:#00321e">Actuals</p>
+                      </th>
+                    </tr>
+                    <tr class="header-text">
+                      <th class="font-weight-bold">
+                        <p class="m-0 week-block" style="color: #1e64aa">Actuals LY</p>
+                      </th>
+                    </tr>
+                    <tr class="header-text">
+                      <th class="font-weight-bold">
+                        <p class="m-0 week-block">Open Orders</p>
+                      </th>
+                    </tr>
+                    <tr class="header-text">
+                      <th class="font-weight-bold">
+                        <p class="m-0 week-block">Promo</p>
+                      </th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div class="table-content-col">
+                <div class="panel panel-default">
+                  <div class="center-block fix-width scroll-inner">
+                    <table class="table table-striped" [(ngModel)]="tables">
+                      <thead>
+                        <tr>
+                          <th class="font-weight-bold" *ngFor="let data of graphData">
+                            <p class="m-0 week-block" [class.highlight]="data.comments?.length"> {{data.newweek}}</p>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <ng-container *ngFor="let data of graphData; let i=index">
+                            <td id="i" class="font-weight-bold cursor-pointer" [class.highlight]="data.lockcell?.length"
+                              [ngClass]="{ 'colored-td': data.calenderYearWeek < greystart }" (click)="comments(i)"
+                              (mousedown)="start_drag_final(i)" (mouseover)="addvalues_finaldforecast(i);"
+                              (mouseup)="end_drag()">
+                              {{ data.finalForecast | currency: "€ " :" "}}
+                            </td>
+                          </ng-container>
+                        </tr>
+                        <tr>
+                          <ng-container *ngFor="let data of graphData; let i=index">
+                            <td (dblclick)="data.ml !== undefined && onDblClickInput(i,data.calenderYearWeek)"
+                              [ngClass]="{ 'colored-td': data.calenderYearWeek < greystart }">
+                              <input type="text" class="table-inputbox" (blur)="onValueBlur(data.calenderYearWeek, i)"
+                                [ngClass]="{ 'colored-table-inputbox': data.calenderYearWeek < greystart }"
+                                (input)="onValueInput(data.calenderYearWeek, i)"
+                                [disabled]="greystart> data.calenderYearWeek || this.enabled===0"
+                                [class.disabled]="greystart> data.calenderYearWeek"
+                                [class.highlight]="data.lockcell?.length" [(ngModel)]="data.fcstValueAdd"
+                                [innerText]="data.fcstValueAdd">
+                            </td>
+                          </ng-container>
+                        </tr>
+                        <tr>
+                          <td *ngFor="let data of graphData ; let i=index"
+                            [ngClass]="{ 'colored-td': data.calenderYearWeek < greystart }"
+                            [class.highlight]="data.lockcell?.length" (mousedown)="start_drag_ml(i)"
+                            (mouseover)="addvalues(i);" (mouseup)="end_drag()">
+                            {{ data.ml | currency: "€ ":" " }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td *ngFor="let data of graphData ; let i=index"
+                            [ngClass]="{ 'colored-td': data.calenderYearWeek < greystart }"
+                            [class.highlight]="data.lockcell?.length" (mousedown)="start_drag_apo(i)"
+                            (mouseover)="addvalues_apo(i);" (mouseup)="end_drag()">
+                            {{ data.apo | currency: "€ ":" "}}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td *ngFor="let data of graphData ; let i=index"
+                            [ngClass]="{ 'colored-td': data.calenderYearWeek < greystart }"
+                            (mousedown)="start_drag_actuals(i)" (mouseover)="addvalues_actuals(i);"
+                            (mouseup)="end_drag()">
+                            {{ data.actuals | currency: "€ ":" "}}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td *ngFor="let data of graphData ; let i=index"
+                            [ngClass]="{ 'colored-td': data.calenderYearWeek < greystart }"
+                            (mousedown)="start_drag_actualsly(i)" (mouseover)="addvalues_actualslastyear(i);"
+                            (mouseup)="end_drag()">
+                            {{ data.actualslastyear | currency: "€ " :" "}}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td *ngFor="let data of graphData ; let i=index"
+                            [ngClass]="{ 'colored-td': data.calenderYearWeek < greystart }"
+                            (mousedown)="start_drag_open(i)" (mouseover)="addvalues_harshit(i);" (mouseup)="end_drag()">
+                            {{ data.harshit | currency: "€ ":" "}}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td *ngFor="let data of graphData ; let i=index"
+                            [ngClass]="{ 'colored-td': data.calenderYearWeek < greystart }"
+                            (mousedown)="start_drag_open(i)" (mouseover)="addvalues_harshit(i);" (mouseup)="end_drag()">
+                            {{ data.promovalue | currency: "€ ":" "}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="table-footer-col">
+                <table>
+                  <tr>
+                    <th class="font-weight-bold">
+                      <p class="m-0 week-block" style="font-size: 0.6rem;">Total</p>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="font-weight-bold">
+                      <p class="m-0 week-block">{{ totalData.finalCastTotal | currency: "€ ":" "}}</p>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="font-weight-bold">
+                      <p class="m-0 week-block">{{ forecastadd.toFixed(2) | currency: "€ ":" " }}</p>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="font-weight-bold">
+                      <p class="m-0 week-block">{{ totalData.mlTotal | currency: "€ ":" "}}</p>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="font-weight-bold">
+                      <p class="m-0 week-block">{{ totalData.apoTotal | currency: "€ ":" "}}</p>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="font-weight-bold">
+                      <p class="m-0 week-block">{{ totalData.actuals | currency: "€ ":" "}}</p>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="font-weight-bold">
+                      <p class="m-0 week-block">{{ totalData.lastYearTotal | currency: "€ ":" "}}</p>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="font-weight-bold">
+                      <p class="m-0 week-block">{{ totalData.harshit | currency: "€ ":" "}}</p>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="font-weight-bold">
+                      <p class="m-0 week-block">{{ totalData.promovalue | currency: "€ ":" "}}</p>
+                    </th>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="p-2 text-center">
+            </div>
+          </div>
+          <div class="bg-white rounded shadow mt-2"
+            style="border-radius: 6px !important;padding-bottom: 10px;padding-top: 24px; height: 670px;margin-bottom:32px;">
+            <div class="d-flex justify-content-between align-items-center"
+              style="margin-bottom: 24px;margin-right:24px;margin-left:24px;height: 40px;">
+              <p class="font-weight-bold" style=" font-family: Montserrat;
+              font-size: 18px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 22px;
+                margin-left: 0px; margin-top: 0px;margin-bottom: 0px;
+              " [innerText]="featureanalysis"></p>
+              <div class="form-group m-0">
+                <svg (click)="download_graph2()" style="cursor:pointer;" width="40" height="40" viewBox="0 0 40 40"
+                  fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="0.5" y="0.5" width="39" height="39" stroke="#212833" />
+                  <rect x="11" y="10" width="18" height="18.6598" fill="white" fill-opacity="0.01" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M25.3422 19.3357L20.6723 23.9615C20.2928 24.3224 19.7072 24.3224 19.3277 23.9615L14.6578 19.3357C14.4772 19.1593 14.375 18.9143 14.375 18.6582C14.375 18.402 14.4772 18.1571 14.6578 17.9807C15.0386 17.6139 15.6307 17.6139 16.0115 17.9807L19.0369 20.9898V10.9906C19.0369 10.4435 19.4681 10 20 10C20.5319 10 20.9631 10.4435 20.9631 10.9906V20.9898L23.9885 17.9807C24.371 17.6185 24.9597 17.6185 25.3422 17.9807C25.5228 18.1571 25.625 18.402 25.625 18.6582C25.625 18.9143 25.5228 19.1593 25.3422 19.3357ZM27.2 25.7764V20.5864C27.2 19.9929 27.6029 19.5119 28.1 19.5119C28.5971 19.5119 29 19.9929 29 20.5864V25.7764C29 27.5567 27.7912 29 26.3 29H13.7C12.2088 29 11 27.5567 11 25.7764V20.5864C11 19.9929 11.4029 19.5119 11.9 19.5119C12.3971 19.5119 12.8 19.9929 12.8 20.5864V25.7764C12.8 26.3698 13.2029 26.8509 13.7 26.8509H26.3C26.7971 26.8509 27.2 26.3698 27.2 25.7764Z"
+                    fill="#212833" />
+                </svg>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center "
+              style="width: 60%;height: 24px; margin-left: 16px;margin-right: 24px;">
+              <div class="row" style="width:100%">
+                <div class="col-lg" style="padding-left: 0px !important;padding-right: 0px;margin-left:24px">
+                  <p id="ssplit"
+                    style="margin-bottom: 0px !important;width:40%;margin-right:40px;font-family: 'Montserrat', sans-serif !important; font-size: 14px;font-weight: bold; cursor: pointer;line-height: 16px;"
+                    (click)="secondgraph='Baseline';feature_legends=true; test(secondgraph)">ML Split</p>
+                  <div *ngIf="secondgraph == 'Baseline'"
+                    style="width:40%;background:#212833;height: 5px;padding-right: 0px;"></div>
+                </div>
+                <div class="col-lg" style="padding-left: 0px !important;padding-right: 0px;">
+                  <p id="spromo"
+                    style="margin-bottom: 0px !important;width:65%;margin-right:40px;font-family: 'Montserrat', sans-serif !important; font-size: 14px; cursor: pointer;line-height: 16px;"
+                    (click)="secondgraph='Promo';feature_legends=false; test(secondgraph)">Temperature</p>
+                  <div *ngIf="secondgraph == 'Promo'"
+                    style="width:65%;background:#212833;height: 5px;padding-right: 0px;"></div>
+                </div>
+                <div class="col-lg" style="padding-left: 0px !important;padding-right: 0px;">
+                  <p id="stemp"
+                    style="margin-bottom: 0px !important;width:39%;margin-right:40px !important;font-family: 'Montserrat', sans-serif !important; font-size: 14px; cursor: pointer;line-height: 16px;"
+                    (click)="secondgraph='Weather';feature_legends=false; test(secondgraph)">Events</p>
+                  <div *ngIf="secondgraph == 'Weather'"
+                    style="width:39%;background:#212833;height: 5px;padding-right: 0px;"></div>
+                </div>
+                <div class="col-lg" style="padding-left: 0px !important;padding-right: 0px;">
+                  <p id="sopen"
+                    style="margin-bottom: 0px !important;width:60%;margin-right:40px;font-family: 'Montserrat', sans-serif !important; font-size: 14px; cursor: pointer;line-height: 16px;"
+                    (click)="secondgraph='Open'; feature_legends=false;test(secondgraph)">Open Order</p>
+                  <div *ngIf="secondgraph == 'Open'"
+                    style="width:60%;background:#212833;height: 5px;padding-right: 0px;"></div>
+                </div>
+              </div>
+            </div>
+            <div id="chartContainer2"
+              style="zoom: 133% !important; padding-top: 25px; padding-bottom: 20px; height: 350px; width: 97%;padding-left: 16px;">
+            </div>
+            <div class="data-strip d-none">
+              <ul>
+                <li>201910</li>
+                <li>201915</li>
+                <li>201920</li>
+                <li>201925</li>
+                <li>201930</li>
+                <li>201935</li>
+                <li>201940</li>
+              </ul>
+            </div>
+            <div id="legends" *ngIf="feature_legends">
+              <ul id="legendList" class="stats_6" style="list-style-type:none;  float: right;
+              margin-top: 32px;padding-right: 24px;margin-bottom: 30px;">
+                <li style="display: flex;margin-right: 24px;"><label class="switch_10_5_2" for="checkbox_6">
+                    <input type="checkbox" id="checkbox_6" (change)="chart_slider_baseline()" checked />
+                    <div class="slider_01_5_2 round" style="margin-top: 8px;"></div>
+                  </label>
+                  <span style=" margin-top: 7px;margin-left:30px; font-size: 14px;
+            font-weight: 400;
+            line-height: 18px;">Baseline</span>
+                </li>
+                <li style="display: flex; "> <label class="switch_10_5_3" for="checkbox_8">
+                    <input type="checkbox" id="checkbox_8" (change)="chart_slider_promo()" checked />
+                    <div class="slider_01_5_3 round" style="margin-top: 8px;"></div>
+                  </label>
+                  <span style=" margin-top: 7px;margin-right: 4px;margin-left: 30px;  font-size: 14px;
+          font-weight: 400;
+          line-height: 18px;">Promo Effect</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div *ngIf="commens_main_table" id="comments_main" class="bg-white rounded shadow mt-2"
+            style="border-radius: 6px !important;    padding-bottom: 20px;
+          margin-bottom: 15px;padding-top: 24px;margin-top: 32px !important;padding-right: 24px;padding-left: 24px; width:100%;">
+            <div class="d-flex justify-content-between pt-1 pr-1" style="margin-bottom:24px">
+              <p class="font-weight-bold ml-2 pt-2"
+                style=" font-family: 'Montserrat', sans-serif !important;font-size:18px;line-height: 22px;padding-top:12px !important;margin-left:0px !important">
+                Comments
+              </p>
+              <div class="input-group">
+                <input type="text" placeholder="Search Comments" [(ngModel)]="commentSearchText"
+                  name="commentSearchText" style="border-radius:5px;height: 48px !important;padding-top: 14px;padding-bottom: 14px;padding-left:14px;margin-left:25px; background-clip: padding-box;
+                  border: 1px solid #ced4da; background-color: #fff;
+                  font-family: 'Montserrat', sans-serif !important;font-size:14px;line-height: 20px;width:80%"
+                  (input)="onFilterTextBoxChanged()">
+              </div>
+              <span class="input-group-text"
+                style="float: right!important; ;margin-right:24px;height:32px;margin-top:8px"><i
+                  (click)="hide_all_comments()" class="fa fa-low-vision"></i></span>
+              <app-special-select id="commentTableSelect" selectName="Selected Week" [selectItems]="selectCommentTable" (selectionMadeEvent)="changecomment($event)"></app-special-select>
+            </div>
+            <div *ngIf="up_table" style="overflow: auto">
+              <ag-grid-angular style="width: 100%; height: 98vh;" class="ag-theme-alpine"
+                [rowData]="allComments_harshit" [columnDefs]="columnDefComments" [getRowHeight]="getRowHeight"
+                (gridReady)="onGridReady($event)" (singleClickEdit)="false" [pagination]="true"
+                (firstDataRendered)="firstDataRenderedAllComments($event)"
+                (modelUpdated)="firstDataRenderedAllComments($event)"
+                (rowDataUpdated)="firstDataRenderedAllComments($event)"
+                (newColumnsLoaded)="firstDataRenderedAllComments($event)"
+                (displayedColumnsChanged)="firstDataRenderedAllComments($event)"
+                (virtualColumnsChanged)="firstDataRenderedAllComments($event)"
+                (viewportChanged)="firstDataRenderedAllComments($event)"
+                (bodyScroll)="firstDataRenderedAllComments($event)">
+              </ag-grid-angular>
+            </div>
+            <div *ngIf="down_table" style="overflow: auto">
+              <ag-grid-angular style="width: 100%; height: 98vh;" class="ag-theme-alpine" [rowData]="finn"
+                [pagination]="true" [columnDefs]="columnDefComments" [getRowHeight]="getRowHeight"
+                (gridReady)="onGridReady($event)" (singleClickEdit)="false" (cellDoubleClicked)="Dbledit($event)"
+                (firstDataRendered)="firstDataRenderedWeeklyComments($event)"
+                (modelUpdated)="firstDataRenderedWeeklyComments($event)"
+                (rowDataUpdated)="firstDataRenderedWeeklyComments($event)"
+                (newColumnsLoaded)="firstDataRenderedWeeklyComments($event)"
+                (displayedColumnsChanged)="firstDataRenderedWeeklyComments($event)"
+                (virtualColumnsChanged)="firstDataRenderedWeeklyComments($event)"
+                (viewportChanged)="firstDataRenderedWeeklyComments($event)"
+                (bodyScroll)="firstDataRenderedWeeklyComments($event)">
+              </ag-grid-angular>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 filtercomb" *ngIf="bothYes"
+        style="padding-right: 24px !important; padding-left: 12px !important;position: fixed;left:68%;width: 31%;overflow: auto;">
+        <div class="mt-2 d-flex justify-content-around" style="overflow-y: auto; margin-bottom: 24px;height: 40px;margin-top:0px;">
+          <div class="d-flex flex-column align-items-center mr-auto">
+           <p class="font-weight-bold" style="font-family: 'Montserrat', sans-serif !important; padding-top: 9px;padding-bottom: 9px;margin-bottom:0px;font-size: 18px  !important;
+            line-height: 22px !important;">Filters & Combinations</p>
+          </div>
+          <div class="d-flex " style="margin-right: 11px;">
+            <a href="javascript:void(0);" class="data-action" data-target="#loadFilterModal" data-toggle="modal"
+              title="Load">
+              <img src="assets/images/load-icon.jpg">
+            </a>
+          </div>
+          <div class="d-flex " style="margin-right: 10px;">
+            <a href="javascript:void(0);" class="data-action" data-target="#saveFilterModal" data-toggle="modal"
+              title="Save">
+              <img src="assets/images/save-icon.jpg">
+            </a>
+          </div>
+          <div class="d-flex " (click)="refresh()" style="margin-right: 10px;" title="Refresh">
+            <a href="javascript:void(0);" class="data-action">
+              <img src="assets/images/clear-icon.jpg">
+            </a>
+          </div>
+        </div>
+        <div *ngIf="showcombinationcolumn_filter" class="filter-column" style="background-color: white;">
+          <div
+            style="padding-top: 10px; padding-right: 10px; margin-left: 24px; font-size: 12px; height: 91%; overflow: auto;">
+            <div class="d-flex justify-content-between ffbox" role="tablist" id="filterAccordion"
+              aria-multiselectable="true" style="margin-top: 14px;" (click)="unexpanded_out()">
+              <p ffitem class="font-weight-bold" (click)="filter_toggle_function()"	
+              style="cursor:pointer;font-family: 'Montserrat', sans-serif !important; font-size: 16px;">Filters</p>
+            </div>
+            <p class="font-weight-bold"
+              style="font-family: 'Montserrat', sans-serif !important; font-size: 16px;line-height:22px;color: #8BA0B9; margin-top: 8px; margin-bottom: 0px !important;"
+              (click)="unexpanded_out()">CPG</p>
+            <div class="d-flex  ffbox" role="tablist" id="filterAccordion" aria-multiselectable="true">
+              <div class="ffitem">
+                <h6 class="mt-3">Sales Office</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Sales Office" [selectItems]="filters2_list[0]" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>
+             <div (click)="unexpanded_out()" style="width: 24px;"></div>
+              <div class="ffitem">
+                <h6 class="mt-3">Trade Type</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Trade Type" [selectItems]="filters2_list[1]" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>  
+            </div>
+            <div class="d-flex  ffbox" role="tablist" id="filterAccordion" aria-multiselectable="true">
+              <div class="ffitem">
+                <h6 class="mt-3">Plants</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Plants" [selectItems]="filters_plant" searchbox="true" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>
+              <div (click)="unexpanded_out()" style="width: 24px;"></div>
+              <div class="ffitem">
+                <h6 class="mt-3">CPG</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="CPG" [selectItems]="filters" searchbox="true" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>
+            </div>
+            <p (click)="unexpanded_out()" class="font-weight-bold"
+              style="font-family: 'Montserrat', sans-serif !important;color: #8BA0B9; margin-top: 24px; margin-bottom: 0px !important; font-size: 16px;line-height:22px;">
+              Forecasting Group</p>
+            <div class="d-flex ffbox" role="tablist" id="filterAccordion" aria-multiselectable="true">
+              <div class="ffitem">
+                <h6 class="mt-3">Brand</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Brand" [selectItems]="filters1_brands" searchbox="true" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div> 
+              <div (click)="unexpanded_out()" style="width: 24px"></div>
+              <div class="ffitem">
+                <h6 class="mt-3">Sub-Brand</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Sub-Brand" [selectItems]="filters1_subbrand" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div> 
+            </div>
+            <div class="d-flex  ffbox" role="tablist" id="filterAccordion" aria-multiselectable="true">
+              <div class="ffitem">
+                <h6 class="mt-3">Lead Sku</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Lead Sku" [selectItems]="filters1_leadsku" searchbox="true" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div> 
+              <div (click)="unexpanded_out()" style="width: 24px;"></div>
+              <div class="ffitem">
+                <h6 class="mt-3">Own/3PP</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Own/3PP" [selectItems]="filters1_list[0]" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>
+            </div>
+            <div class="d-flex  ffbox" role="tablist" id="filterAccordion" aria-multiselectable="true">
+              <div class="ffitem">
+                <h6 class="mt-3">Material Group</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Material Group" [selectItems]="filters1_list[1]" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>
+            <div (click)="unexpanded_out()" style="width: 24px;"></div>
+              <div class="ffitem">
+                <h6 class="mt-3">Global Category</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Global Category" [selectItems]="filters1_list[2]" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>
+            </div>
+            <div class="d-flex  ffbox" role="tablist" id="filterAccordion" aria-multiselectable="true">
+              <div class="ffitem">
+                <h6 class="mt-3">Local Category</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Local Category" [selectItems]="filters1_list[3]" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>
+              <div (click)="unexpanded_out()" style="width: 24px;"></div>
+              <div class="ffitem">
+                <h6 class="mt-3">Primary Unit</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Primary Unit" [selectItems]="filters1_list[4]" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>
+            </div>
+            <div class="d-flex  ffbox" role="tablist" id="filterAccordion" aria-multiselectable="true">
+              <div class="ffitem">
+                <h6 class="mt-3">Pack Size</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Pack Size" [selectItems]="filters1_list[5]" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>
+              <div (click)="unexpanded_out()" style="width: 24px;"></div>
+              <div class="ffitem">
+                <h6 class="mt-3">Pack Type</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Pack Type" [selectItems]="filters1_list[6]" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>
+            </div>
+            <div class="d-flex ffbox" role="tablist" id="filterAccordion" aria-multiselectable="true">
+              <div class="ffitem">
+                <h6 class="mt-3">Animal Farm Segment</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Animal Farm Segment" [selectItems]="filters1_list[7]" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>
+              <div (click)="unexpanded_out()" style="width: 24px;"></div>
+              <div class="ffitem">
+                <h6 class="mt-3">ABV</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="ABV" [selectItems]="filters1_list[8]" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>
+            </div>
+            <div class="d-flex ffbox" role="tablist" id="filterAccordion" aria-multiselectable="true">
+              <div class="ffitem">
+                <h6 class="mt-3">Material Group NO</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="Material Group NO" [selectItems]="filters1_list[9]" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>
+              <div (click)="unexpanded_out()" style="width: 24px;"></div>
+              <div class="ffitem">
+                <h6 class="mt-3">SNP Planner</h6>
+                <app-special-select multiSelect="true" (componentClickedEvent)="keepDropDownOpen()" selectName="SNP Planner" [selectItems]="filters1_list[10]" (multiSelectionMadeEvent)="setFilterValues($event)"></app-special-select>
+              </div>
+            </div>
+            <div (click)="unexpanded_out()" style="height: 5%;"></div>
+          </div>
+          <div
+            style="border-top: 5px solid; border-color: #F8F9FA; height: 80px;filter: drop-shadow(0px -4px 10px rgba(0, 0, 0, 0.05));box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"
+            (click)="unexpanded_out()">
+            <div
+              style="padding-top: 12px; padding-right: 24px; margin-left: 24px; font-size: 12px;filter: drop-shadow(0px -4px 10px rgba(0, 0, 0, 0.05));">
+              <div class="d-flex justify-content-between ffbox" role="tablist" id="filterAccordion"
+                aria-multiselectable="true">
+               <p ffitem (click)="filter_toggle_function()" class="font-weight-bold"
+                  style="cursor: pointer; font-family: 'Montserrat', sans-serif !important; font-size: 16px;line-height: 22px; font-weight: 700;margin-top: 12px;">
+                  Combinations</p>
+                <button *ngIf="disable_filter" ffitem (click)="filterorcomb_generate();"
+                  style="height: 48px; width: 116px; font-family: 'Montserrat', sans-serif !important; font-size: 14px; background-color: #00DD76; color: white; border-color: #00DD76; font-weight: 700;margin-bottom: 16px !important;">Generate</button>
+                <button *ngIf="!disable_filter" ffitem
+                                    style="height: 48px; width: 116px; font-family: 'Montserrat', sans-serif !important; font-size: 14px; background-color: #D5DBE2; color: white; border-color: #D5DBE2; font-weight: 700;margin-bottom: 16px !important;">Generate</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="showcombinationcolumn_combination" class="combination-column"
+          style="background-color: white; height: 100%">
+           <div style="line-height:22px;padding-top: 10px; padding-right: 10px; margin-left: 10px; font-size: 12px; height: 8%">
+            <div class="d-flex justify-content-between ffbox" role="tablist" id="filterAccordion"
+              aria-multiselectable="true">
+              <p (click)="filter_toggle_function()" ffitem class="font-weight-bold"
+              style="margin-top:12px;margin-left:12px;margin-bottom:24px;cursor: pointer;font-family: 'Montserrat', sans-serif !important; font-size: 16px;">Filters</p>
+            </div>
+          </div>
+          <div style="border-top: 5px solid; border-color: #F8F9FA; height: 92%">
+            <div
+               style="padding-top: 24px; padding-right: 10px; margin-left: 24px; font-size: 16px;line-height:22px; height: 92%; overflow: auto;">
+              <p *ngIf="combination_down" (click)="filter_toggle_function()"ffitem class="font-weight-bold"
+                style="cursor:pointer;font-family: 'Montserrat', sans-serif !important; font-size: 16px;">Combinations</p>
+              <div id="searchbarandoptions" (click)="$event.stopPropagation()">
+                <div class="input-group mt-2">
+                  <!-- <input > -->
+                  <div class="input-group" style="width: 98%;">
+                    <input id="searchTheFG" class="form-control py-2 rounded-pill mr-1 pr-5" type="text" style="border-radius: 18px;font-family: Montserrat;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 20px;
+                    padding-left: 16px;
+                    padding-top: 12px;
+                    padding-bottom: 12px;
+                    letter-spacing: 0px;
+                    text-align: left;height:48px;
+                    " class="form-control" [(ngModel)]="searchText" (focus)='fgshow()' name="searchSKU"
+                      placeholder="Search to add extra FGs">
+                    <span class="input-group-append">
+                      <button class="btn rounded-pill border-0 ml-n5" type="button" style="margin-top: -5px;">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M13.9999 7.45992C13.9999 8.90509 13.5312 10.2408 12.7374 11.3232L14.247 12.8328L14.955 12.1247C15.3455 11.7342 15.9787 11.7342 16.3692 12.1247L21.5099 17.2654C21.9004 17.6559 21.9004 18.2891 21.5099 18.6796L18.6815 21.508C18.2909 21.8986 17.6578 21.8986 17.2672 21.508L12.1266 16.3674C11.7361 15.9768 11.7361 15.3437 12.1266 14.9532L12.8328 14.247L11.3232 12.7374C10.2408 13.5312 8.90509 13.9999 7.45992 13.9999C3.84798 13.9999 0.919922 11.0719 0.919922 7.45992C0.919922 3.84798 3.84798 0.919922 7.45992 0.919922C11.0719 0.919922 13.9999 3.84798 13.9999 7.45992ZM2.91992 7.45992C2.91992 9.96729 4.95255 11.9999 7.45992 11.9999C9.96729 11.9999 11.9999 9.96729 11.9999 7.45992C11.9999 4.95255 9.96729 2.91992 7.45992 2.91992C4.95255 2.91992 2.91992 4.95255 2.91992 7.45992ZM17.9744 19.3867L19.3886 17.9725L15.6621 14.2461L14.2479 15.6603L17.9744 19.3867Z"
+                            fill="black" />
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                  <div class="input-group-append">
+                  </div>
+                </div>
+                <div class="mb-2"
+                  style="max-height: 50vh; overflow: auto;font-size: 12px; border-left: 2px solid #888888; box-shadow: 1px 1px 1px 1px #888888 !important;"
+                  data-simplebar *ngIf="pressed">
+                  <div class="bg-white mt-1 p-1 pl-2 d-flex oprow"
+                    *ngFor="let sku of skus_search | filter: getCallback(); let i=index">
+                    <p class="m-0 extrafgs mr-auto" styl="padding-left: 5px;">{{ sku.name }}</p>
+                    <a *ngIf="!addedSkuIDsToSearch.includes(sku.id)" href="javascript:void(0);"
+                      (click)="addItems(sku.id)">
+                      <p class="m-0 extrafgs ml-auto"
+                        style="color: #8D9FB9; font-weight: 700; text-decoration: underline; cursor: pointer; padding-right: 5px;">
+                        Add</p>
+                    </a>
+                    <p *ngIf="addedSkuIDsToSearch.includes(sku.id)" class="m-0 extrafgs ml-auto"
+                      style="color: #8D9FB9; font-weight: 700; cursor: pointer; padding-right: 5px;">Added</p>
+                  </div>
+                </div>
+              </div>
+              <div class="horborder">
+              </div>
+              <p ffitem class="font-weight-bold" style="font-family: 'Montserrat', sans-serif !important; font-family: Montserrat;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 700;
+              line-height: 16px;
+              letter-spacing: 0px;
+              text-align: left;
+              ">Filtered and extra Forecasting Groups</p>
+              <p style="font-family: 'Montserrat', sans-serif !important;font-family: Montserrat;
+              font-size: 12px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: 16px;
+              letter-spacing: 0px;
+              text-align: left;
+              ">{{sku_semi.length + skus.length + second_sku.length}} Forecasting Groups</p>
+              <div class="panel-body"
+                style="height: auto; max-height: 60vh; overflow: auto;background: white !important;">
+                <div class="mb-2" style="font-size: 12px;" data-simplebar>
+                  <div class="mt-1 p-1 pl-2 d-flex l12">
+                    <div style="margin-top: 3px;">
+                      <input class="mr-1" style="height:18px;width:18px" type="checkbox" (change)="clearAllSKUs()">
+                    </div>
+                    <p style="font-family: Montserrat;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 18px;
+                    letter-spacing: 0px;
+                    text-align: left;
+                    " class="m-0">All</p>
+                  </div>
+                  <div style="background: #f4f5f9;" class=" mt-1 p-1 pl-2  l12"
+                    *ngFor="let sku of sku_semi; let i=index ">
+                    <hr style="width: 100%;    width: 100%;
+                    margin-top: -12.6px !important;
+                    margin-bottom: 9.4px !important;">
+                    <div style="margin-top: 3px;" class="d-flex">
+                       <input class="mr-1" style="height:18px;width:18px" type="checkbox" [(ngModel)]="sku.isChecked" (change)="reactivate_filter(1)">
+                      <p class="m-0" style="font-family: Montserrat;
+                      font-size: 14px;
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: 18px;
+                      letter-spacing: 0px;
+                      text-align: left;
+                      " (mouseover)="bigImg(sku.name)" (mouseout)="normalImg()">{{ sku.name }}</p>
+                    </div>
+                  </div>
+                  <hr style="margin-top: 0.2rem;color: #000">
+                  <div style="background: #f4f5f9;" class=" mt-1 p-1 pl-2 l12 " *ngFor="let sku of skus; let i=index ">
+                    <hr style="width: 100%;    width: 100%;
+                    margin-top: -12.6px !important;
+                    margin-bottom: 9.4px !important;">
+                    <div style="margin-top: 3px;" class="d-flex">
+                       <input class="mr-1" style="height:18px;width:18px" type="checkbox" [(ngModel)]="sku.isChecked" (change)="reactivate_filter(1)">
+                      <p class="m-0" style="font-family: Montserrat;
+                      font-size: 12px;
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: 16px;
+                      letter-spacing: 0px;
+                      text-align: left;
+                      " (mouseover)="bigImg(sku.name)" (mouseout)="normalImg()">{{ sku.name }}</p>
+                    </div>
+                  </div>
+                  <div style="background: #f4f5f9;" class=" mt-1 p-1 pl-2 l12"
+                    *ngFor="let sku of second_sku; let i=index">
+                    <hr style="width: 100%;    width: 100%;
+                    margin-top: -12.6px !important;
+                    margin-bottom: 9.4px !important;">
+                    <div style="margin-top: 3px;" class="d-flex">
+                       <input class="mr-1" style="height:18px;width:18px" type="checkbox" [(ngModel)]="sku.isChecked" (change)="reactivate_filter(1)">
+                      <p style="font-family: Montserrat;
+                      font-size: 12px;
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: 16px;
+                      letter-spacing: 0px;
+                      text-align: left;
+                      " class="m-0" (mouseover)="bigImg(sku.name)" (mouseout)="normalImg()">{{ sku.name }}</p>
+                      <svg width="39" style="margin-left: 11%;" height="16" viewBox="0 0 39 16" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="36"
+                          height="16">
+                          <rect width="36" height="16" fill="white" />
+                        </mask>
+                        <g mask="url(#mask0)">
+                          <rect opacity="0.01" width="8" height="16" fill="#FFE6A9" />
+                          <rect opacity="0.01" x="28" width="8" height="16" fill="#FFE6A9" />
+                        </g>
+                        <rect width="39" height="16" rx="8" fill="#1ACDCC" />
+                        <path
+                          d="M13 9.96V11H8.664V5.4H12.896V6.44H9.952V7.656H12.552V8.664H9.952V9.96H13ZM16.6245 11L15.6805 9.68L14.7045 11H13.3445L15.0005 8.832L13.4005 6.696H14.8005L15.7125 7.952L16.6485 6.696H17.9765L16.3765 8.8L18.0405 11H16.6245ZM21.4223 10.792C21.2996 10.8827 21.1476 10.952 20.9663 11C20.7903 11.0427 20.6036 11.064 20.4063 11.064C19.8943 11.064 19.497 10.9333 19.2143 10.672C18.937 10.4107 18.7983 10.0267 18.7983 9.52V7.752H18.1343V6.792H18.7983V5.744H20.0463V6.792H21.1183V7.752H20.0463V9.504C20.0463 9.68533 20.0916 9.82667 20.1823 9.928C20.2783 10.024 20.4116 10.072 20.5823 10.072C20.7796 10.072 20.9476 10.0187 21.0863 9.912L21.4223 10.792ZM23.3149 7.264C23.4642 7.056 23.6642 6.89867 23.9149 6.792C24.1709 6.68533 24.4642 6.632 24.7949 6.632V7.784C24.6562 7.77333 24.5629 7.768 24.5149 7.768C24.1575 7.768 23.8775 7.86933 23.6749 8.072C23.4722 8.26933 23.3709 8.568 23.3709 8.968V11H22.1229V6.696H23.3149V7.264ZM27.2495 6.632C27.9162 6.632 28.4282 6.792 28.7855 7.112C29.1428 7.42667 29.3215 7.904 29.3215 8.544V11H28.1535V10.464C27.9188 10.864 27.4815 11.064 26.8415 11.064C26.5108 11.064 26.2228 11.008 25.9775 10.896C25.7375 10.784 25.5535 10.6293 25.4255 10.432C25.2975 10.2347 25.2335 10.0107 25.2335 9.76C25.2335 9.36 25.3828 9.04533 25.6815 8.816C25.9855 8.58667 26.4522 8.472 27.0815 8.472H28.0735C28.0735 8.2 27.9908 7.992 27.8255 7.848C27.6602 7.69867 27.4122 7.624 27.0815 7.624C26.8522 7.624 26.6255 7.66133 26.4015 7.736C26.1828 7.80533 25.9962 7.90133 25.8415 8.024L25.3935 7.152C25.6282 6.98667 25.9082 6.85867 26.2335 6.768C26.5642 6.67733 26.9028 6.632 27.2495 6.632ZM27.1535 10.224C27.3668 10.224 27.5562 10.176 27.7215 10.08C27.8868 9.97867 28.0042 9.832 28.0735 9.64V9.2H27.2175C26.7055 9.2 26.4495 9.368 26.4495 9.704C26.4495 9.864 26.5108 9.992 26.6335 10.088C26.7615 10.1787 26.9348 10.224 27.1535 10.224Z"
+                          fill="white" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="padding-top: 10px; padding-right: 10px; margin-left: 10px; font-size: 12px; height: 7%">
+              <a href="javascript:void(0);" *ngIf="!reactivate_filter_button" id="apply_filter"
+                class="btn btn-primary custom-link btn-xs" style="background:#bec1c1;font-weight: 700; margin-left: 5%;margin-top: 2vh; width: 90%;    padding-top: 10px;
+              height: 48px;" (click)='onFilterCheckBoxChange();deactivate();'>Plan Selection</a>
+              <a href="javascript:void(0);" *ngIf="reactivate_filter_button" id="apply_filter"
+                class="btn btn-primary custom-link btn-xs" style="background:#00DD76;font-weight: 700; margin-left: 5%;margin-top: 2vh; width: 90%;    border-radius: 0px !important;    padding-top: 10px;
+              height: 48px;
+              border-color: #00DD76;" (click)='onFilterCheckBoxChange();deactivate();'>Plan Selection</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!--Save a Plan Modal-->
+  <a href="javascript:void(0);" [hidden]="true" data-target="#saveAPlansModal" data-toggle="modal"
+    #saveAPlansModalBtn>Save a Plan Modal</a>
+  <div class="modal fade save-plan-modal" id="saveAPlansModal" role="dialog" data-backdrop="false"
+    aria-labelledby="saveAPlansModal" style="background: rgba(59, 59, 59, 0.5);">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Save the Plan</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #PlanNameModalBtn><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex justify-content-center">
+            <button type="button" (click)="savePlan()" class="btn btn-secondary custom-link btn-xs mr-2">Yes
+              <ng-container *ngIf="savePlanLoader">
+                <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+              </ng-container>
+            </button>
+            <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-secondary custom-link btn-xs">
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Save View modal-->
+
+  <!--Graph Comment Modal-->
+  <a href="javascript:void(0);" [hidden]="true" data-target="#commentFormModal" data-toggle="modal"
+    #commentFormModalBtn>Open Graph Comment Form Modal</a>
+  <div class="modal fade comment-modal" id="commentFormModal" tabindex="-1" role="dialog" data-backdrop="false"
+    style="background: rgba(59, 59, 59, 0.5);">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Comment6543</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #commentFormModalCancel>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #commentForm="ngForm">
+            <div class="form-group">
+              <label class="d-none" for="comment">
+                Comment4
+              </label>
+              <input type="text" class="form-control" id="comment" name="comment" placeholder="eg. Comment" ngModel
+                required>
+            </div>
+            <button type="submit" class="btn float-right btn-secondary" [disabled]="!commentForm.valid"
+              [ngClass]="{'disabled': !commentForm.valid}"
+              (click)="onCommentFormSubmit(commentForm,commentForm.value)">Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Final Forecast Comment Modal-->
+  <a href="javascript:void(0);" [hidden]="true" data-target="#finalForecastCommentModal" data-toggle="modal"
+    #finalForecastCommentModalBtn>Open Graph Comment Form Modal</a>
+  <div class="modal fade final-comment-modal" id="finalForecastCommentModal" tabindex="-1" role="dialog"
+    data-backdrop="false" style="background: rgba(59, 59, 59, 0.5);">
+    <div class="modal-dialog" role="document" style="margin-left: 33%;">
+      <div class="modal-content" style="height: 398px; width: 645px; top: 270px;">
+        <div class="modal-header" style="border: 0; padding-bottom: 8px;height: 56px">
+          <button type="button" class="close" data-dismiss="modal"
+            style="margin-top:0px;margin-right:0px;padding:0px;padding-top:6px" aria-label="Close"
+            #finalForecastCommentModalCancel (click)="selectedWeekIndex=null;finalForecastCommentForm.resetForm()">
+            <span aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M6 4.65161L10.3723 0.279261C10.7447 -0.093087 11.3484 -0.093087 11.7207 0.279261C12.0931 0.651609 12.0931 1.2553 11.7207 1.62765L7.34839 6L11.7207 10.3723C12.0931 10.7447 12.0931 11.3484 11.7207 11.7207C11.3484 12.0931 10.7447 12.0931 10.3723 11.7207L6 7.34839L1.62765 11.7207C1.2553 12.0931 0.651608 12.0931 0.279261 11.7207C-0.0930872 11.3484 -0.0930872 10.7447 0.279261 10.3723L4.65161 6L0.279261 1.62765C-0.0930872 1.2553 -0.0930872 0.651609 0.279261 0.279261C0.651608 -0.093087 1.2553 -0.093087 1.62765 0.279261L6 4.65161Z"
+                  fill="#212833" />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div class="modal-body" style="padding-top: 0 !important;">
+          <h5 class="modal-title" style="padding-bottom: 16px; font-family: Montserrat;font-size: 18px;font-weight: 700;text-align: center;font-family: Montserrat;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 22px;
+          letter-spacing: 0px;
+          text-align: center;
+          ">Comments</h5>
+          <p style="font-family: Montserrat;font-size: 14px; text-align: center;font-family: Montserrat;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 18px;
+          letter-spacing: 0px;
+          text-align: center;
+          ">Write a comment associated with {{ weeknoC }} below.</p>
+          <form #finalForecastCommentForm="ngForm" style="padding-bottom: 56px;">
+            <div class="form-group">
+              <label class="d-none" for="finalForecastComment">
+                Comments1q
+              </label>
+              <textarea class="form-control" id="finalForecastComment" name="comment"
+                placeholder="Write your comment here" ngModel required
+                style="padding-bottom: 32px;margin-bottom: 32px; padding-top: 16px;padding-left: 16px; height: 134px; width: 437px; margin-left:87px; font-family: Montserrat;font-size: 14px; font-weight: 400;">
+              </textarea>
+            </div>
+            <button type="submit" class="btn" [disabled]="!finalForecastCommentForm.valid"
+              [ngClass]="{'disabled': !finalForecastCommentForm.valid}"
+              (click)="onFinalForecastCommentSubmit(finalForecastCommentForm.value)" style="font-family: 'Montserrat', sans-serif; width: 435px; height: 48px; margin-left: 87px; background-color: #212833; color: white;font-family: Montserrat;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 700;
+              line-height: 14px;
+              letter-spacing: 0px;
+              text-align: center;
+              padding-top: 16px;
+              padding-bottom: 16px;
+              ">Add Comment</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--EDIT Comment Modal-->
+  <a href="javascript:void(0);" [hidden]="true" data-target="#editCommentModal" data-toggle="modal"
+    #editCommentModalBtn>Open Graph Comment Form Modal</a>
+  <div class="modal fade final-comment-modal" id="editCommentModal" tabindex="-1" role="dialog" data-backdrop="false"
+    style="background: rgba(59, 59, 59, 0.5);">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Comment</h5>
+          <button type="button" class="close" data-dismiss="modal"
+            style="margin-top:0px;margin-right:0px;padding:0px;padding-top:6px" aria-label="Close"
+            #editCommentModalBtnCancel (click)="selectedWeekIndex=null;editCommentForm.resetForm()">
+            <span aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M6 4.65161L10.3723 0.279261C10.7447 -0.093087 11.3484 -0.093087 11.7207 0.279261C12.0931 0.651609 12.0931 1.2553 11.7207 1.62765L7.34839 6L11.7207 10.3723C12.0931 10.7447 12.0931 11.3484 11.7207 11.7207C11.3484 12.0931 10.7447 12.0931 10.3723 11.7207L6 7.34839L1.62765 11.7207C1.2553 12.0931 0.651608 12.0931 0.279261 11.7207C-0.0930872 11.3484 -0.0930872 10.7447 0.279261 10.3723L4.65161 6L0.279261 1.62765C-0.0930872 1.2553 -0.0930872 0.651609 0.279261 0.279261C0.651608 -0.093087 1.2553 -0.093087 1.62765 0.279261L6 4.65161Z"
+                  fill="#212833" />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #editCommentForm="ngForm">
+            <div class="form-group">
+              <label class="d-none" for="finalForecastComment">
+                Comment_new
+              </label>
+              <input type="text" class="form-control" value="{{comm1[0]}}" id="finalForecastComment" name="comment"
+                placeholder="eg. Comment" ngModel required>
+            </div>
+            <button type="submit" class="btn float-right btn-dark" [disabled]="!editCommentForm.valid"
+              [ngClass]="{'disabled': !editCommentForm.valid}"
+              (click)="editCommentSubmit(editCommentForm.value,selectedWeekIndex)">Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Save Filter Modal-->
+  <a href="javascript:void(0);" [hidden]="true" data-target="#saveFilterModal" data-toggle="modal" #saveFilterModal>Open
+    Save Filter Modal</a>
+  <div class="modal fade save-filter-modal" id="saveFilterModal" tabindex="-1" role="dialog" data-backdrop="false"
+    style="background: rgba(59, 59, 59, 0.5);">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="width: 645px; height: 318px; top: 150px;">
+        <div class="modal-header" style="border-bottom: 0px !important; height: 40px;" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true"  #saveFilterModalCancel>
+          <button type="button" 
+            style="background-color: white;border:0px;margin-top:0px;margin-right:24px;padding:0px;padding-top:24px;float:right" >
+            <span aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M6 4.65161L10.3723 0.279261C10.7447 -0.093087 11.3484 -0.093087 11.7207 0.279261C12.0931 0.651609 12.0931 1.2553 11.7207 1.62765L7.34839 6L11.7207 10.3723C12.0931 10.7447 12.0931 11.3484 11.7207 11.7207C11.3484 12.0931 10.7447 12.0931 10.3723 11.7207L6 7.34839L1.62765 11.7207C1.2553 12.0931 0.651608 12.0931 0.279261 11.7207C-0.0930872 11.3484 -0.0930872 10.7447 0.279261 10.3723L4.65161 6L0.279261 1.62765C-0.0930872 1.2553 -0.0930872 0.651609 0.279261 0.279261C0.651608 -0.093087 1.2553 -0.093087 1.62765 0.279261L6 4.65161Z"
+                  fill="#212833" />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div class="modal-body" style="padding-top: 16px;padding-left: 16px;padding-right: 16px;padding-bottom: 0px;">
+          <h5 class="modal-title" style="
+         font-family: Montserrat;
+font-size: 18px;
+font-style: normal;
+font-weight: 700;
+line-height: 22px;
+letter-spacing: 0px;
+text-align: center;
+margin-bottom: 16px;
+">Save Filters and Combination Set</h5>
+          <p style="    
+font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 18px;
+letter-spacing: 0px;
+text-align: center;
+">Give a name to this set.</p>
+          <form #saveFilterModalForm="ngForm" style="margin-bottom:56px;margin-top: 16px;">
+            <div style="margin-bottom: 32px;">
+              <div class="form-group">
+                <input type="text" style="width: 435px; height: 54px; padding: 16px; margin-left: 13%; font-size: 14px;font-family: Montserrat;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 18px;
+                letter-spacing: 0px;
+                text-align: left;" class="form-control" id="filterName" name="filterName" [(ngModel)]="save_filter_id"
+                  (input)="change_color()" #filterName ngModel placeholder="Set Name" required>
+              </div>
+            </div>
+            <div class="d-flex">
+              <button type="submit" id="btn_save_id" class="btn" style="margin-left: 13%;padding-left: 16px; padding-top: 16px; padding-bottom: 16px; font-size: 14px;
+              width: 435px; height: 48px; margin-right: 15%;font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: 14px;
+letter-spacing: 0px;
+text-align: center;
+background-color: #D5DBE2; color: white; font-weight: bold;" [disabled]="!filterName.value"
+                (click)="saveFilter(filterName.value)">Save Set
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--- After Save Filter worked-->
+  <a href="javascript:void(0);" [hidden]="true" data-target="#saveFilterModal_second" data-toggle="modal"
+    #saveFilterModal_second>Open Save Filter Modal</a>
+  <div class="modal fade save-filter-modal" id="saveFilterModal_second" tabindex="-1" role="dialog"
+    data-backdrop="false" style="background: rgba(59, 59, 59, 0.5);">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="width: 120% !important; ">
+        <div class="modal-header" style="border-bottom: 0px !important;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #loadFilterModalCancel>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5 class="modal-title" style="margin-left: 22%;
+          font-family: 'Montserrat';
+          font-weight: 900;
+          font-size: 20px;
+          margin-top: 7%;">Filter Saved</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Load Filter Modal-->
+  <a href="javascript:void(0);" [hidden]="true" data-target="#loadFilterModal" data-toggle="modal" #loadFilterModal>Open
+    Load Filter Modal</a>
+  <div class="modal fade load-filter-modal" id="loadFilterModal" tabindex="-1" role="dialog" data-backdrop="false"
+    style="background: rgba(59, 59, 59, 0.5);">
+    <div class="modal-dialog right-modal-dialog" role="document" style="max-width: 600px; overflow: auto;">
+      <div class="modal-content right-modal-content" style="height: auto !important; min-height: 135vh;">
+        <div class="modal-header"
+          style="border-bottom: 0px !important; padding-left: 24px !important;padding-top: 32px;padding-right: 24px !important;padding-bottom: 32px !important;">
+          <h5 class="modal-title" style="font-family: Montserrat;
+                font-size: 18px;
+                padding-top:9px;
+                padding-bottom:9px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 22px;
+                letter-spacing: 0px;
+                text-align: left;
+                ">Load Filters and Combinations</h5>
+          <button type="button" class="close" data-dismiss="modal"
+            style="margin-top:0px;margin-right:0px;padding:0px;padding-top:6px" aria-label="Close"
+            #saveFilterModalCancel>
+            <span aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M6 4.65161L10.3723 0.279261C10.7447 -0.093087 11.3484 -0.093087 11.7207 0.279261C12.0931 0.651609 12.0931 1.2553 11.7207 1.62765L7.34839 6L11.7207 10.3723C12.0931 10.7447 12.0931 11.3484 11.7207 11.7207C11.3484 12.0931 10.7447 12.0931 10.3723 11.7207L6 7.34839L1.62765 11.7207C1.2553 12.0931 0.651608 12.0931 0.279261 11.7207C-0.0930872 11.3484 -0.0930872 10.7447 0.279261 10.3723L4.65161 6L0.279261 1.62765C-0.0930872 1.2553 -0.0930872 0.651609 0.279261 0.279261C0.651608 -0.093087 1.2553 -0.093087 1.62765 0.279261L6 4.65161Z"
+                  fill="#212833" />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div class="modal-body"
+          style="padding-left: 24px !important;padding: 16px 24px !important;padding-top: 0px !important;padding-bottom: 24px !important;">
+          <div class="input-group" style="width: 100%;">
+            <input (focus)="showhideCrossIcon()" (input)="showhideCrossIcon()" (keyup)="showhideCrossIcon()"
+              (change)="showhideCrossIcon()" class="form-control py-2 rounded-pill inputz" type="text"
+              class="form-control" [(ngModel)]="searchText_filter" placeholder="Search Filters" style="border-color: #B2B9C1; margin-left: 0px; border-radius: 10px;font-family: Montserrat;
+                font-size: 14px;
+                height: 48px !important;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 20px;
+                letter-spacing: 0px;
+                padding-left: 16px !important;
+                padding-top: 14px !important;
+                padding-bottom: 14px !important;
+                padding-right: 16px !important;
+                text-align: left;
+                z-index: 1 !important;
+                ">
+            <span class="input-group-append" *ngIf="!showCrossIcon" style="height: 48px;">
+              <button class="btn rounded-pill border-0 ml-n5" type="button"
+                style="margin-top: 13.92px;margin-bottom: 13.92px;padding-top:0px;padding-bottom:0px">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M13.9999 7.45992C13.9999 8.90509 13.5312 10.2408 12.7374 11.3232L14.247 12.8328L14.955 12.1247C15.3455 11.7342 15.9787 11.7342 16.3692 12.1247L21.5099 17.2654C21.9004 17.6559 21.9004 18.2891 21.5099 18.6796L18.6815 21.508C18.2909 21.8986 17.6578 21.8986 17.2672 21.508L12.1266 16.3674C11.7361 15.9768 11.7361 15.3437 12.1266 14.9532L12.8328 14.247L11.3232 12.7374C10.2408 13.5312 8.90509 13.9999 7.45992 13.9999C3.84798 13.9999 0.919922 11.0719 0.919922 7.45992C0.919922 3.84798 3.84798 0.919922 7.45992 0.919922C11.0719 0.919922 13.9999 3.84798 13.9999 7.45992ZM2.91992 7.45992C2.91992 9.96729 4.95255 11.9999 7.45992 11.9999C9.96729 11.9999 11.9999 9.96729 11.9999 7.45992C11.9999 4.95255 9.96729 2.91992 7.45992 2.91992C4.95255 2.91992 2.91992 4.95255 2.91992 7.45992ZM17.9744 19.3867L19.3886 17.9725L15.6621 14.2461L14.2479 15.6603L17.9744 19.3867Z"
+                    fill="black" />
+                </svg>
+              </button>
+            </span>
+            <span class="input-group-append" *ngIf="showCrossIcon">
+              <button class="btn rounded-pill border-0 ml-n5" type="button" style="margin-top: -5px;"
+                (click)="clearSearch()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="24" height="24" fill="white" fill-opacity="0.01" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12 10.6516L16.3723 6.27926C16.7447 5.90691 17.3484 5.90691 17.7207 6.27926C18.0931 6.65161 18.0931 7.2553 17.7207 7.62765L13.3484 12L17.7207 16.3723C18.0931 16.7447 18.0931 17.3484 17.7207 17.7207C17.3484 18.0931 16.7447 18.0931 16.3723 17.7207L12 13.3484L7.62765 17.7207C7.2553 18.0931 6.65161 18.0931 6.27926 17.7207C5.90691 17.3484 5.90691 16.7447 6.27926 16.3723L10.6516 12L6.27926 7.62765C5.90691 7.2553 5.90691 6.65161 6.27926 6.27926C6.65161 5.90691 7.2553 5.90691 7.62765 6.27926L12 10.6516Z"
+                    fill="#212833" />
+                </svg>
+              </button>
+            </span>
+          </div>
+          <div class="d-flex" *ngIf="sort_filter" style="margin-top: 32px;margin-bottom:32px">
+            <p *ngIf="sort_filter" style="color: #8BA0B9; margin-left: 212px;font-family: Montserrat;height:25px;
+                   font-size: 14px;
+                   font-style: normal;
+                   font-weight: 400;
+                   line-height: 18px;
+                   letter-spacing: 0px;padding-top: 4.5px;padding-bottom: 2.5px;
+                   text-align: left;white-space: nowrap;margin-bottom:0px;
+                   ">Sort by </p>
+            <div class="ffitem" style="margin-left: 10px; height:25px;">
+              <ng-container *ngFor="let filter of selectsortby; let filterIndex=index">
+                <div class="panel panel-default sortbyselect" style="border:0px !important">
+                  <a role="button" data-toggle="collapse" id="filter.key" data-parent="#filterAccordion"
+                    [href]="'#' + filter.key + 'filter'" aria-expanded="true"
+                    [attr.aria-controls]="filter.key + 'filter'"
+                    (click)="unexpanded_drop();filter.isExpanded = !filter.isExpanded">
+                    <div class="panel-heading" role="tab" [id]="filter.key"
+                      style="height: 30px; background: inherit;padding:0px;width:fit-content">
+                      <h4 class="panel-title"
+                        style="font-family: 'Montserrat', sans-serif !important;color: #8BA0B9;font-size:14px;line-height: 18px;padding-top:3.5px;padding-bottom:3.5px;">
+                        {{ filter_sortby }}
+                        <i class="fa float-right" style="width:24px"
+                          [ngClass]="[ filter.isExpanded ? 'fa-chevron-up' : 'fa-chevron-down' ]"></i>
+                      </h4>
+                    </div>
+                  </a>
+                  <div [id]="filter.key + 'filter'" class="panel-collapse collapse" role="tabpanel"
+                    [attr.aria-labelledby]="filter.key">
+                    <div class="panel-body" style="height: 25vh; overflow: auto;">
+                      <ul class="m-0">
+                        <li class="d-flex li1" *ngFor="let value of filter.values;"
+                          (click)="filter_sortby = value; sortFilters(); filter.isExpanded = !filter.isExpanded;unexpanded_drop();"
+                          style="cursor: pointer;">
+                          <p class="m-0">{{ value }}</p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div style="height: 100%;">
+            <div style="height:80% !important;overflow: auto;">
+              <div class="bg-white mt-1 oprow"
+                style="font-size: 14px; font-weight: 700; border-bottom: 1px solid; width: 100%; border-color: #CFD9E7;"
+                *ngFor="let filter of loadedFilters | loadfilter : getCallback_filter() ;let i=index ">
+                <div class="d-flex">
+                  <div class="mr-auto">
+                    <div class="d-flex">
+                      <p class="extrafgs" style="padding-left: 5px;font-family: Montserrat;
+                               font-size: 14px;
+                               font-style: normal;
+                               font-weight: 700;
+                               height: 24px;
+                               line-height: 24px;
+                               margin-bottom: 4px !important;
+                               margin-top: 0px !important;
+                               letter-spacing: 0px;
+                               text-align: left;
+                               ">{{ filter.name }}</p>
+                      <svg *ngIf="filter.default_Val == 'Default'" style="margin-left: 8px;" width="55" height="24"
+                        viewBox="0 0 55 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="55" height="24" rx="12" fill="#656DDF" />
+                        <path
+                          d="M8.83 9H12.01C12.77 9 13.44 9.14667 14.02 9.44C14.6067 9.72667 15.06 10.1333 15.38 10.66C15.7067 11.1867 15.87 11.8 15.87 12.5C15.87 13.2 15.7067 13.8133 15.38 14.34C15.06 14.8667 14.6067 15.2767 14.02 15.57C13.44 15.8567 12.77 16 12.01 16H8.83V9ZM11.93 14.67C12.63 14.67 13.1867 14.4767 13.6 14.09C14.02 13.6967 14.23 13.1667 14.23 12.5C14.23 11.8333 14.02 11.3067 13.6 10.92C13.1867 10.5267 12.63 10.33 11.93 10.33H10.45V14.67H11.93ZM22.2517 13.33C22.2517 13.35 22.2417 13.49 22.2217 13.75H18.1517C18.2251 14.0833 18.3984 14.3467 18.6717 14.54C18.9451 14.7333 19.2851 14.83 19.6917 14.83C19.9717 14.83 20.2184 14.79 20.4317 14.71C20.6517 14.6233 20.8551 14.49 21.0417 14.31L21.8717 15.21C21.3651 15.79 20.6251 16.08 19.6517 16.08C19.0451 16.08 18.5084 15.9633 18.0417 15.73C17.5751 15.49 17.2151 15.16 16.9617 14.74C16.7084 14.32 16.5817 13.8433 16.5817 13.31C16.5817 12.7833 16.7051 12.31 16.9517 11.89C17.2051 11.4633 17.5484 11.1333 17.9817 10.9C18.4217 10.66 18.9117 10.54 19.4517 10.54C19.9784 10.54 20.4551 10.6533 20.8817 10.88C21.3084 11.1067 21.6417 11.4333 21.8817 11.86C22.1284 12.28 22.2517 12.77 22.2517 13.33ZM19.4617 11.72C19.1084 11.72 18.8117 11.82 18.5717 12.02C18.3317 12.22 18.1851 12.4933 18.1317 12.84H20.7817C20.7284 12.5 20.5817 12.23 20.3417 12.03C20.1017 11.8233 19.8084 11.72 19.4617 11.72ZM25.0003 10.74H26.3803V11.94H25.0403V16H23.4803V11.94H22.6503V10.74H23.4803V10.5C23.4803 9.88667 23.6603 9.4 24.0203 9.04C24.387 8.68 24.9003 8.5 25.5603 8.5C25.7936 8.5 26.0136 8.52667 26.2203 8.58C26.4336 8.62667 26.6103 8.69667 26.7503 8.79L26.3403 9.92C26.1603 9.79333 25.9503 9.73 25.7103 9.73C25.237 9.73 25.0003 9.99 25.0003 10.51V10.74ZM29.2298 10.54C30.0632 10.54 30.7032 10.74 31.1498 11.14C31.5965 11.5333 31.8198 12.13 31.8198 12.93V16H30.3598V15.33C30.0665 15.83 29.5198 16.08 28.7198 16.08C28.3065 16.08 27.9465 16.01 27.6398 15.87C27.3398 15.73 27.1098 15.5367 26.9498 15.29C26.7898 15.0433 26.7098 14.7633 26.7098 14.45C26.7098 13.95 26.8965 13.5567 27.2698 13.27C27.6498 12.9833 28.2332 12.84 29.0198 12.84H30.2598C30.2598 12.5 30.1565 12.24 29.9498 12.06C29.7432 11.8733 29.4332 11.78 29.0198 11.78C28.7332 11.78 28.4498 11.8267 28.1698 11.92C27.8965 12.0067 27.6632 12.1267 27.4698 12.28L26.9098 11.19C27.2032 10.9833 27.5532 10.8233 27.9598 10.71C28.3732 10.5967 28.7965 10.54 29.2298 10.54ZM29.1098 15.03C29.3765 15.03 29.6132 14.97 29.8198 14.85C30.0265 14.7233 30.1732 14.54 30.2598 14.3V13.75H29.1898C28.5498 13.75 28.2298 13.96 28.2298 14.38C28.2298 14.58 28.3065 14.74 28.4598 14.86C28.6198 14.9733 28.8365 15.03 29.1098 15.03ZM38.6517 10.62V16H37.1717V15.36C36.9651 15.5933 36.7184 15.7733 36.4317 15.9C36.1451 16.02 35.8351 16.08 35.5017 16.08C34.7951 16.08 34.2351 15.8767 33.8217 15.47C33.4084 15.0633 33.2017 14.46 33.2017 13.66V10.62H34.7617V13.43C34.7617 14.2967 35.1251 14.73 35.8517 14.73C36.2251 14.73 36.5251 14.61 36.7517 14.37C36.9784 14.1233 37.0917 13.76 37.0917 13.28V10.62H38.6517ZM40.097 8.58H41.657V16H40.097V8.58ZM46.9654 15.74C46.8121 15.8533 46.6221 15.94 46.3954 16C46.1754 16.0533 45.9421 16.08 45.6954 16.08C45.0554 16.08 44.5587 15.9167 44.2054 15.59C43.8587 15.2633 43.6854 14.7833 43.6854 14.15V11.94H42.8554V10.74H43.6854V9.43H45.2454V10.74H46.5854V11.94H45.2454V14.13C45.2454 14.3567 45.3021 14.5333 45.4154 14.66C45.5354 14.78 45.7021 14.84 45.9154 14.84C46.1621 14.84 46.3721 14.7733 46.5454 14.64L46.9654 15.74Z"
+                          fill="white" />
+                      </svg>
+                    </div>
+                    <div class="d-flex">
+                      <p class=" extrafgs mr-auto"
+                        style="padding-left: 5px;font-weight: normal;font-size: 12px;font-family: Montserrat;line-height: 16px;">
+                        <span style="color: #8BA0B9;">Created </span> {{filter.dateCreated}}
+                      </p>
+                      <p class=" extrafgs mr-auto"
+                        style="padding-left: 16px;font-weight: normal;font-size: 12px;font-family: Montserrat;line-height: 16px;">
+                        <span style="color: #8BA0B9;">Modified </span> {{filter.dateModified}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="load-filter-dots d-flex" style="padding-top: 10px;">
+                    <a href="javascript:void(0);" (click)="filterItemClick(i); loadSelectedFilter()"
+                      data-toggle="tooltip" title="Load Filter" style="padding-right:16px">
+                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="32" height="32" rx="16" fill="#212833" />
+                        <rect opacity="0.01" x="8" y="8" width="16" height="16" fill="white" fill-opacity="0.01" />
+                        <path d="M16 8.5V18" stroke="white" stroke-width="2" stroke-linecap="round" />
+                        <path d="M16 8.5L12 12.5" stroke="white" stroke-width="2" stroke-linecap="round" />
+                        <path d="M16 8.5L20 12.5" stroke="white" stroke-width="2" stroke-linecap="round" />
+                        <path d="M10 23H22" stroke="white" stroke-width="2" stroke-linecap="round" />
+                        <rect width="32" height="32" rx="16" fill="#212833" />
+                        <rect x="8" y="8" width="16" height="16" fill="white" fill-opacity="0.01" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M11.2514 12.109L15.4024 8.20872C15.7397 7.90438 16.2603 7.90438 16.5976 8.20872L20.7486 12.109C20.9091 12.2578 21 12.4643 21 12.6803C21 12.8962 20.9091 13.1027 20.7486 13.2515C20.4101 13.5607 19.8838 13.5607 19.5453 13.2515L16.856 10.7144V19.1453C16.856 19.6065 16.4728 19.9805 16 19.9805C15.5272 19.9805 15.144 19.6065 15.144 19.1453V10.7144L12.4547 13.2515C12.1146 13.5569 11.5914 13.5569 11.2514 13.2515C11.0909 13.1027 11 12.8962 11 12.6803C11 12.4643 11.0909 12.2578 11.2514 12.109ZM22.4 21.2825V16.9065C22.4 16.4061 22.7582 16.0005 23.2 16.0005C23.6418 16.0005 24 16.4061 24 16.9065V21.2825C24 22.7836 22.9255 24.0005 21.6 24.0005H10.4C9.07452 24.0005 8 22.7836 8 21.2825V16.9065C8 16.4061 8.35817 16.0005 8.8 16.0005C9.24183 16.0005 9.6 16.4061 9.6 16.9065V21.2825C9.6 21.7828 9.95817 22.1885 10.4 22.1885H21.6C22.0418 22.1885 22.4 21.7828 22.4 21.2825Z"
+                          fill="white" />
+                      </svg>
+                    </a>
+                    <a class="dots" href="javascript:void(0);" (click)="filterItemClick(i); toggleDD();"
+                      data-toggle="tooltip" title="More Options" style="margin-top:5px;">
+                      <svg width="4" height="20" viewBox="0 0 4 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M4 2C4 3.10457 3.10457 4 2 4C0.895431 4 0 3.10457 0 2C0 0.895431 0.895431 0 2 0C3.10457 0 4 0.895431 4 2ZM4 10C4 11.1046 3.10457 12 2 12C0.895431 12 0 11.1046 0 10C0 8.89543 0.895431 8 2 8C3.10457 8 4 8.89543 4 10ZM2 20C3.10457 20 4 19.1046 4 18C4 16.8954 3.10457 16 2 16C0.895431 16 0 16.8954 0 18C0 19.1046 0.895431 20 2 20Z"
+                          fill="#212833" />
+                      </svg>
+                      <div id="myDropdown" class="dropdown-content mdd">
+                        <a href="javascript:void(0);" (click)="delfilter(i)">Delete</a>
+                        <a href="javascript:void(0);" (click)="default()">Make Default</a>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex" *ngIf="not_available_filter">
+                <span style="font-family: Montserrat;
+                      font-size: 14px;
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: 18px;
+                      letter-spacing: 0px;
+                      text-align: left;
+                      position: absolute;
+                      margin-left: 72px;color: #8BA0B9;margin-top:32px;
+                      ">We didn't find any search results</span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="sort_filter"
+            style="width: 90%;right:24px; position: fixed; bottom: 0; background: white;margin-bottom: 24px;">
+            <button
+              style="float: right; margin-top: 24px; background-color: white; padding-top: 12px; padding-bottom: 12px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px;"
+              onclick="document.getElementById('getFile').click()">
+              Upload from computer
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="24" height="24" transform="matrix(1 0 0 -1 0 24)" fill="white" fill-opacity="0.01" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M15.2456 7.34016L5.63274 16.953C5.24221 17.3436 5.24221 17.9767 5.63274 18.3673C6.02326 18.7578 6.65643 18.7578 7.04695 18.3673L16.6598 8.75437V14.8302C16.6598 15.3824 17.1076 15.8302 17.6598 15.8302C18.2121 15.8302 18.6598 15.3824 18.6598 14.8302V6.34114C18.6598 6.33773 18.6598 6.33433 18.6598 6.33092C18.6586 6.20375 18.6334 6.07675 18.584 5.95737C18.6317 6.0726 18.6586 6.1987 18.6598 6.33092M17.6691 5.3402C17.6657 5.34017 17.6623 5.34015 17.6589 5.34016H9.16984C8.61756 5.34016 8.16984 5.78787 8.16984 6.34016C8.16984 6.89244 8.61756 7.34016 9.16984 7.34016H15.2456"
+                  fill="#212833" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Load Filter Modal-->
+  <a href="javascript:void(0);" [hidden]="true" data-target="#lockModal" data-toggle="modal" #lockModal>Open
+    Options available</a>
+  <div class="modal fade load-filter-modal" id="lockModal" tabindex="-1" role="dialog" data-backdrop="false"
+    style="background: rgba(59, 59, 59, 0.5);">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Notes and Action</h5>
+          <button type="button" class="close invisible" data-dismiss="modal" aria-label="Close" #lockModalCancel>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #loadForm="ngForm">
+            <div class="filter-item shadow-sm cursor-pointer" (click)="commenting()">
+              Comment
+            </div>
+            <div class="filter-item shadow-sm cursor-pointer">
+              Lock Cell
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button type="button" class="btn btn-dark" (click)="loadSelectedFilter()">Yes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script async lang="javascript" src="dist/xlsx.full.min.js"></script>
+<script async lang="javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.7.9/angular-locale_en-de.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/ag-grid-community@25.0.1/dist/styles/ag-grid.css">
+<link rel="stylesheet" href="https://unpkg.com/ag-grid-community@25.0.1/dist/styles/ag-theme-alpine.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+  rel="stylesheet">
+<script src="https://unpkg.com/@ag-grid-enterprise/all-modules@23.2.0/dist/ag-grid-enterprise.min.js"></script>
