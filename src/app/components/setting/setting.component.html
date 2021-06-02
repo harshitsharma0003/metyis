@@ -1,0 +1,454 @@
+<script async lang="javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.7.9/angular-locale_en-de.min.js"></script>
+<div id="content">
+  <div class="heading" style="padding-top: 32px;margin-bottom: 46px;">
+    <h2 class="headingtitle" style="padding-top: 10px;padding-bottom: 10px;margin-bottom: 0px;">Settings</h2>
+  </div>
+  <div>
+    <div class="justify-content-between align-items-center "
+      style="width: 60%;height: 22px;margin-left: 24px;;margin-bottom: 46px;">
+      <div class="row" style=" width: 100%;margin-left: 0px !important;">
+        <div class="" style="padding-left: 0px !important;padding-right: 0px !important;">
+          <p id="side_user"
+            style="margin-bottom: 0px !important;margin-right:40px;font-family: 'Montserrat', sans-serif !important; font-size: 14px;cursor: pointer;letter-spacing: 4px;line-height: 16px;width: 200px;"
+            (click)="secondgraph='Baseline'; openuser();">User Management</p>
+          <div *ngIf="secondgraph == 'Baseline'" style="width:195px;background:#212833;height: 5px;"></div>
+        </div>
+        <div class="" style="padding-left: 0px !important;padding-right: 0px !important;">
+          <p id="side_logs"
+            style="margin-bottom: 0px !important;width:50px;font-family: 'Montserrat', sans-serif !important; font-size: 14px;cursor: pointer;letter-spacing: 4px;line-height: 16px;"
+            (click)="secondgraph='Promo';logs1();">Logs</p>
+          <div *ngIf="secondgraph == 'Promo'" style="width:50px;background:#212833;height: 5px;"></div>
+        </div>
+        <div class=""
+          style="padding-left: 0px !important;padding-right: 0px !important;margin-left: 40px;margin-right: 40px;">
+          <p id="side_comments"
+            style="margin-bottom: 0px !important;width:111px;font-family: 'Montserrat', sans-serif !important; font-size: 14px; cursor: pointer;letter-spacing: 4px;line-height: 16px;"
+            (click)="secondgraph='Weather';comments1();">Comments</p>
+          <div *ngIf="secondgraph == 'Weather'" style="width:111px;background:#212833;height: 5px;"></div>
+        </div>
+        <div class="" style="padding-left: 0px !important;padding-right: 0px !important;">
+          <p id="side_info"
+            style="margin-bottom: 0px !important;width:45px;font-family: 'Montserrat', sans-serif !important; font-size: 14px; cursor: pointer;letter-spacing: 4px;line-height: 16px;"
+            (click)="secondgraph='Open';infopage()">Info</p>
+          <div *ngIf="secondgraph == 'Open'" style="width:45px;background:#212833;height: 5px;"></div>
+        </div>
+        <div class="" style="padding-left: 0px !important;padding-right: 0px !important;margin-left: 40px;">
+          <p id="side_default"
+            style="margin-bottom: 0px !important;width:186px;font-family: 'Montserrat', sans-serif !important; font-size: 14px; cursor: pointer;letter-spacing: 4px;line-height: 16px;"
+            (click)="secondgraph='Open1';datefield()">Default Settings</p>
+          <div *ngIf="secondgraph == 'Open1'" style="width:186px;background:#212833;height: 5px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="colppp" style="margin-left: 24px;">
+      <!--admin ngif block-------->
+      <div *ngIf="block12">
+        <div class="d-flex" style="margin-right: 24px;height: 48px;">
+          <h3 style="font-size: 18px; font-weight: 700;line-height: 22px;
+            height: 22px;
+            margin-bottom: 0px;
+        " class="mr-auto">User Management</h3>
+          <button type="button" style="font-family: Montserrat;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 14px;
+            border-radius: 0px;
+            letter-spacing: 0px;
+            color: #212833;
+            text-align: center;
+            height: 48px;
+    width: 181px;
+             padding: 18px 45px 16px 55px;  border: 2px solid black !important; background-color: inherit;"
+            class="ml-auto btn" (click)=adduser_12()>Add User</button>
+        </div>
+        <ag-grid-angular style=" height: 98.9vh; margin-top: 26px;margin-right: 24px;margin-bottom: 32px !important;"
+          class="ag-theme-alpine" [rowData]="rowData2" rowSelection="multiple" [columnDefs]="columnDefs2"
+          [getRowHeight]="getRowHeight" rowSelection="multiple" [enableRangeSelection]="true" [domLayout]="domLayout"
+          [autoGroupColumnDef]="autoGroupColumnDef" [suppressDragLeaveHidesColumns]="false" [pagination]="true"
+          (gridReady)="onGridReady($event)" (cellClicked)="onCellClickedBro($event)"
+          (firstDataRendered)="firstDataRendered($event)" (modelUpdated)="firstDataRendered($event)"
+          (rowDataUpdated)="firstDataRendered($event)" (newColumnsLoaded)="firstDataRendered($event)"
+          (displayedColumnsChanged)="firstDataRendered($event)" (virtualColumnsChanged)="firstDataRendered($event)"
+          (viewportChanged)="firstDataRendered($event)" (bodyScroll)="firstDataRendered($event)">
+        </ag-grid-angular>
+      </div>
+      <!-- maybe logs ngif------------>
+      <div *ngIf="up_table">
+        <h3 style="font-family: Montserrat;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 22px;
+          letter-spacing: 0px;
+          text-align: left;
+          margin-bottom: 46px ;
+          ">Logs</h3>
+        <ag-grid-angular style=" height: 98.9vh;margin-right: 24px;margin-bottom: 32px !important;"
+          class="ag-theme-alpine" [rowData]="rowData" [getRowHeight]="getRowHeight" rowSelection="multiple"
+          (gridReady)="onGridReady($event)" [columnDefs]="columnDefs" [pagination]="true" rowSelection="multiple"
+          [enableRangeSelection]="true" (firstDataRendered)="firstDataRendered($event)"
+          (modelUpdated)="firstDataRendered($event)" (rowDataUpdated)="firstDataRendered($event)"
+          (newColumnsLoaded)="firstDataRendered($event)" (displayedColumnsChanged)="firstDataRendered($event)"
+          (virtualColumnsChanged)="firstDataRendered($event)" (viewportChanged)="firstDataRendered($event)"
+          (bodyScroll)="firstDataRendered($event)">
+        </ag-grid-angular>
+      </div>
+      <!-------maybe comments ngif-------------->
+      <div *ngIf="comments_table" style="margin-right: 24px;">
+        <div class="d-flex">
+          <h3 class="mr-auto" style="font-family: Montserrat;padding-top:13px;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 22px;
+            letter-spacing: 0px;
+            text-align: left;
+            ">Comments</h3>
+          <div class="input-group" class="ml-auto" style="display: flex;">
+            <input type="text" id="filter-text-box" style="
+              border-radius: 10px;
+              font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px;
+letter-spacing: 0px;
+text-align: left;
+              padding-left: 16px; border-color: #B2B9C1;
+              padding-top: 14px;padding-bottom: 14px;
+              height: 48px; width: 533px;             z-index: 1 !important;
+              font-family: 'Montserrat', sans-serif !important;
+              margin-bottom: 32px;" [(ngModel)]="searchfilter" placeholder="Search Comments Table"
+              (input)="onFilterTextBoxChanged(); showhideCrossIcon();" (focus)="showhideCrossIcon()"
+              (keyup)="showhideCrossIcon()" (change)="showhideCrossIcon()" />
+            <span class="input-group-append" *ngIf="!showCrossIcon">
+              <button class="btn rounded-pill border-0 ml-n5" type="button"
+                style="margin-top: -32px; background-color: inherit !important;">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M13.9999 7.45992C13.9999 8.90509 13.5312 10.2408 12.7374 11.3232L14.247 12.8328L14.955 12.1247C15.3455 11.7342 15.9787 11.7342 16.3692 12.1247L21.5099 17.2654C21.9004 17.6559 21.9004 18.2891 21.5099 18.6796L18.6815 21.508C18.2909 21.8986 17.6578 21.8986 17.2672 21.508L12.1266 16.3674C11.7361 15.9768 11.7361 15.3437 12.1266 14.9532L12.8328 14.247L11.3232 12.7374C10.2408 13.5312 8.90509 13.9999 7.45992 13.9999C3.84798 13.9999 0.919922 11.0719 0.919922 7.45992C0.919922 3.84798 3.84798 0.919922 7.45992 0.919922C11.0719 0.919922 13.9999 3.84798 13.9999 7.45992ZM2.91992 7.45992C2.91992 9.96729 4.95255 11.9999 7.45992 11.9999C9.96729 11.9999 11.9999 9.96729 11.9999 7.45992C11.9999 4.95255 9.96729 2.91992 7.45992 2.91992C4.95255 2.91992 2.91992 4.95255 2.91992 7.45992ZM17.9744 19.3867L19.3886 17.9725L15.6621 14.2461L14.2479 15.6603L17.9744 19.3867Z"
+                    fill="black" />
+                </svg>
+              </button>
+            </span>
+            <span class="input-group-append" *ngIf="showCrossIcon">
+              <button class="btn rounded-pill border-0 ml-n5" type="button"
+                style="margin-top: -32px; background-color: inherit !important;" (click)="clearSearch()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="24" height="24" fill="white" fill-opacity="0.01" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12 10.6516L16.3723 6.27926C16.7447 5.90691 17.3484 5.90691 17.7207 6.27926C18.0931 6.65161 18.0931 7.2553 17.7207 7.62765L13.3484 12L17.7207 16.3723C18.0931 16.7447 18.0931 17.3484 17.7207 17.7207C17.3484 18.0931 16.7447 18.0931 16.3723 17.7207L12 13.3484L7.62765 17.7207C7.2553 18.0931 6.65161 18.0931 6.27926 17.7207C5.90691 17.3484 5.90691 16.7447 6.27926 16.3723L10.6516 12L6.27926 7.62765C5.90691 7.2553 5.90691 6.65161 6.27926 6.27926C6.65161 5.90691 7.2553 5.90691 7.62765 6.27926L12 10.6516Z"
+                    fill="#212833" />
+                </svg>
+              </button>
+            </span>
+          </div>
+        </div>
+        <ag-grid-angular style=" height: 98.9vh;margin-bottom: 32px !important;" class="ag-theme-alpine"
+          (gridReady)="onGridReady($event)" [rowData]="rowData1" rowSelection="multiple" [pagination]="true"
+          [getRowHeight]="getRowHeight" [columnDefs]="columnDefs1" rowSelection="multiple" [enableRangeSelection]="true"
+          (firstDataRendered)="firstDataRendered($event)" (modelUpdated)="firstDataRendered($event)"
+          (rowDataUpdated)="firstDataRendered($event)" (newColumnsLoaded)="firstDataRendered($event)"
+          (displayedColumnsChanged)="firstDataRendered($event)" (virtualColumnsChanged)="firstDataRendered($event)"
+          (viewportChanged)="firstDataRendered($event)" (bodyScroll)="firstDataRendered($event)">
+        </ag-grid-angular>
+      </div>
+      <!-- horizon (default setting) ngif-------------------->
+      <div *ngIf="horizon" style="height:260px;overflow: auto;">
+        <p style="font-size: 18px;font-weight: 700;line-height: 22px;"> Default Settings</p>
+        <div class="d-flex" style="margin-top: 32px;">
+          <div style="height: 72px; width: 400;">
+            <p style="font-size: 12px; font-weight: 700;line-height: 16px;">Start</p>
+            <input (change)="checkmanDEFSET()"
+              style="width: 380px; height: 60px; padding: 12px; background-color: inherit;     border: 1px solid #CFD9E7;font-size:14px;line-height:18px;"
+              type="week" value="2019-W38" max="2019-W38" id="prevactuals" [(ngModel)]="prevactuals" name="prevactuals">
+          </div>
+          <div style="height: 72px; width: 400; margin-left: 40px;">
+            <p style="font-size: 12px; font-weight: 700;line-height: 16px;">End</p>
+            <input (change)="checkmanDEFSET()"
+              style="width: 380px; height: 60px; padding: 12px; background-color: inherit;     border: 1px solid #CFD9E7;font-size:14px;line-height:18px;"
+              type="week" id="plan" [(ngModel)]="plan" name="plan">
+          </div>
+          <button *ngIf="!defsetAct"
+            style="height: 48px;width: 116px; margin-top: 40px; margin-left: 40px; background: #D5DBE2;color: #ffffff;font-size: 14px;line-height: 18px;">Save</button>
+          <button *ngIf="defsetAct"
+            style="height: 48px;width: 116px; margin-top: 40px; margin-left: 40px; background: #0AC39B;color: #ffffff;"
+            (click)="done()">Save</button>
+        </div>
+      </div>
+      <div *ngIf="last_apo_display">
+        <h3>Last APO Upload - 10/07/2020</h3>
+      </div>
+      <div *ngIf="last_data_display">
+        <h3>Last Data Upload - 2020-08-26 22:55:15</h3>
+      </div>
+      <div *ngIf="info_page">
+        <h3 style="font-family: Montserrat;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 22px;
+          letter-spacing: 0px;
+          text-align: left;
+          ">Information Page</h3>
+        <br><br>
+        <table class="infotable">
+          <tbody>
+            <tr>
+              <td class="htd">
+                <p style="font-weight: bold;font-family: Montserrat;
+                  font-size: 14px;
+                  font-style: normal;
+                  font-weight: 700;
+                  line-height: 24px;
+                  letter-spacing: 0px;
+                  text-align: left;
+                  ">Current Week</p>
+                <p style="font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0px;
+text-align: left;
+">2021 - Week 04</p>
+              </td>
+              <td class="htd">
+                <p style="font-weight: bold;font-family: Montserrat;
+                  font-size: 14px;
+                  font-style: normal;
+                  font-weight: 700;
+                  line-height: 24px;
+                  letter-spacing: 0px;
+                  text-align: left;
+                  ">APO Load Week</p>
+                <p style="font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0px;
+text-align: left;
+">2021 - Week 04</p>
+              </td>
+              <td class="htd">
+                <p style="font-weight: bold;font-family: Montserrat;
+                  font-size: 14px;
+                  font-style: normal;
+                  font-weight: 700;
+                  line-height: 24px;
+                  letter-spacing: 0px;
+                  text-align: left;
+                  ">ML Last Updated Week</p>
+                <p style="font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0px;
+text-align: left;
+">2021 - Week 04</p>
+              </td>
+            </tr>
+            <br><br>
+            <tr>
+              <td class="htd">
+                <p style="font-weight: bold;font-family: Montserrat;
+                  font-size: 14px;
+                  font-style: normal;
+                  font-weight: 700;
+                  line-height: 24px;
+                  letter-spacing: 0px;
+                  text-align: left;
+                  ">APO Last Week Updated</p>
+                <p style="font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0px;
+text-align: left;
+">2021 - Week 03</p>
+              </td>
+              <td class="htd">
+                <p style="font-weight: bold;font-family: Montserrat;
+                  font-size: 14px;
+                  font-style: normal;
+                  font-weight: 700;
+                  line-height: 24px;
+                  letter-spacing: 0px;
+                  text-align: left;
+                  ">UoM Last Updated</p>
+                <p style="font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0px;
+text-align: left;
+">2021 - Week 03</p>
+              </td>
+              <td class="htd">
+                <p style="font-weight: bold;font-family: Montserrat;
+                  font-size: 14px;
+                  font-style: normal;
+                  font-weight: 700;
+                  line-height: 24px;
+                  letter-spacing: 0px;
+                  text-align: left;
+                  ">Sku characteristics Last Updated</p>
+                <p style="font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0px;
+text-align: left;
+">2021 - Week 03</p>
+              </td>
+            </tr>
+            <br><br>
+            <tr>
+              <td class="htd">
+                <p style="font-weight: bold;font-family: Montserrat;
+                  font-size: 14px;
+                  font-style: normal;
+                  font-weight: 700;
+                  line-height: 24px;
+                  letter-spacing: 0px;
+                  text-align: left;
+                  ">Last Upload to APO</p>
+                <p style="font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0px;
+text-align: left;
+">2021 - Week 03</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!--/div-->
+</div>
+<a href="javascript:void(0);" [hidden]="true" data-target="#loadFilterModal" data-toggle="modal" #loadFilterModal>Add
+  user</a>
+<div class="modal fade load-filter-modal load-filter-modal" id="loadFilterModal" tabindex="-1" role="dialog"
+  data-backdrop="false" style="background: rgba(59, 59, 59, 0.5);">
+  <div class="modal-dialog right-modal-dialog" role="document" style="width: 429px !important;">
+    <div class="modal-content right-modal-content">
+      <div class="modal-header right-modal-header">
+        <h5 class="modal-title" style="font-family: Montserrat;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 22px;
+        letter-spacing: 0px;
+        text-align: left;
+        color:#212833;
+        padding-top:8px;
+        padding-bottom:8px
+        ">Add New User</h5>
+        <button type="button" class="close" data-dismiss="modal"
+          style="margin-top:0px;margin-right:0px;padding:0px;padding-top:6px" aria-label="Close" #saveFilterModalCancel>
+          <span aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M6 4.65161L10.3723 0.279261C10.7447 -0.093087 11.3484 -0.093087 11.7207 0.279261C12.0931 0.651609 12.0931 1.2553 11.7207 1.62765L7.34839 6L11.7207 10.3723C12.0931 10.7447 12.0931 11.3484 11.7207 11.7207C11.3484 12.0931 10.7447 12.0931 10.3723 11.7207L6 7.34839L1.62765 11.7207C1.2553 12.0931 0.651608 12.0931 0.279261 11.7207C-0.0930872 11.3484 -0.0930872 10.7447 0.279261 10.3723L4.65161 6L0.279261 1.62765C-0.0930872 1.2553 -0.0930872 0.651609 0.279261 0.279261C0.651608 -0.093087 1.2553 -0.093087 1.62765 0.279261L6 4.65161Z"
+                fill="#212833" />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div class="modal-body right-modal-body">
+        <form name="myForm">
+          <div class="form-group" style="width:100%;margin-bottom: 32px;">
+            <p style="font-family: Montserrat;font-size: 12px;font-weight: 700;
+            font-family: Montserrat;
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+line-height: 16px;
+letter-spacing: 0px;
+margin-bottom: 9px;
+text-align: left;
+color: #212833;
+">Email</p>
+            <input (change)="checkman()" type="text" name="username" class="form-control" id="username"
+              placeholder="Insert Email" [(ngModel)]="username" style="padding-left: 16px; padding-top: 16px; padding-bottom: 16px; height: auto;font-family: Montserrat;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 16px;
+            letter-spacing: 0px;
+            border-radius:0px;
+            text-align: left;
+            border: 1px black solid !important;
+            ">
+          </div>
+          <div class="form-group" style="width:100%;margin-bottom: 32px;">
+            <p style="font-family: Montserrat;font-size: 12px;font-weight: 700;
+            font-family: Montserrat;
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+margin-bottom: 9px;
+line-height: 16px;
+letter-spacing: 0px;
+text-align: left;
+color: #212833;
+">Password</p>
+            <input (change)="checkman()" type="text" name="password" class="form-control" id="password"
+              placeholder="Insert Password" [(ngModel)]="password" style="padding-left: 16px; padding-top: 16px; padding-bottom: 16px; height: auto;font-family: Montserrat;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 16px;
+            border-radius:0px;
+            letter-spacing: 0px;
+            text-align: left;
+            border: 1px black solid !important;
+            ">
+          </div>
+          <div class="form-group" style="width:100%" id="filterAccordion">
+            <p style="font-family: Montserrat;font-size: 12px;font-weight: 700;font-size: 12px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 16px;
+            letter-spacing: 0px;
+            text-align: left;
+            margin-bottom: 8px;
+            color: #212833;
+            ">Role</p>
+            <app-special-select selectName="Choose Role" [selectItems]="selectrole" (selectionMadeEvent)="helpselectrole($event)"></app-special-select>
+          </div>
+        </form>
+        <div class="d-flex" style="bottom: 0; position: fixed;padding-bottom: 32px !important;">
+          <button class="mr-auto"
+            style="height: 40px; padding: 0 !important; border: 0; font-size: 14px; font-weight: 700; background-color: white !important;border-color: black !important; border: 2px solid black !important;border-radius: 0px !important;"
+            data-dismiss="modal" class="btn nextBtn" type="button" (click)="closeModal()">Cancel</button>
+          <button *ngIf=" !addUserAct" class="ml-auto"
+            style="height: 40px; padding: 0 !important; border: 0; font-size: 14px; font-weight: 700; background-color: #D5DBE2;margin-left: 24px;border-radius: 0px !important;"
+            class="btn btn-primary nextBtn" type="button">Add user</button>
+          <button *ngIf="addUserAct" class="ml-auto"
+            style="height: 40px; padding: 0 !important; border: 0; font-size: 14px; font-weight: 700; background-color: #0AC39B;margin-left: 24px;border-radius: 0px !important;"
+            class="btn btn-primary nextBtn" type="button" (click)="adduser()">Add user</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script async lang="javascript" src="dist/xlsx.full.min.js"></script>
+<script async lang="javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.7.9/angular-locale_en-de.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/ag-grid-community@25.0.1/dist/styles/ag-grid.css">
+<link rel="stylesheet" href="https://unpkg.com/ag-grid-community@25.0.1/dist/styles/ag-theme-alpine.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+  rel="stylesheet">
+<script src="https://unpkg.com/@ag-grid-enterprise/all-modules@23.2.0/dist/ag-grid-enterprise.min.js"></script>

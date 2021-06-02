@@ -1,0 +1,344 @@
+#content {
+  box-sizing: border-box;
+  height: 129vh;
+  width: 100%;
+  font-family: 'Montserrat', sans-serif !important;
+}
+.right-modal-dialog {
+  position: fixed !important;
+  width: 40% !important;
+  height: 135vh !important;
+  right: 0 !important;
+  top: 0 !important;
+  margin-top: 0 !important;
+  background-color: white !important;
+}
+.right-modal-content {
+  height: 100% !important;
+  background-color: white !important;
+}
+.right-modal-header {
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+  margin-top: 16px;
+  margin-left: 8px;
+  margin-right: 8px;
+  letter-spacing: 0px;
+  border-bottom: 0;
+  background-color: white !important;
+}
+.right-modal-body {
+  background-color: white !important;
+  margin-left: 8px;
+    margin-right: 8px;
+}
+.nextBtn {
+  background-color: #00DD76;
+  border-color: #00DD76;
+  text-align: center;
+  font-weight: bold !important;
+  width: 178px;
+}
+.heading {
+  display:flex; 
+  flex-direction: row;
+}
+.headingtitle {
+  font-family: 'Montserrat', sans-serif; 
+  font-size: 24px; 
+  font-style: normal;
+  font-weight: 900; 
+  line-height: 28px; 
+  color: #212833;
+  margin-left: 24px;
+}
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+*{
+  font-family: 'Montserrat', sans-serif !important;
+}
+.ag-row-hover {
+  background-color: #F1F4F8 !important;
+}
+.ag-column-hover {
+  background-color: #ffffff !important;
+}
+.first-container {
+  width: 60%!important;
+  display: flex;
+  align-items: left;
+  justify-content: left;
+}
+.login-container {
+ /* background-color: #264A35;*/
+  width:40%!important;
+  color: #ffffff;
+  display: flex;
+  align-items: left;
+  justify-content: left;
+}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* Style the buttons */
+.btn {
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: #ddd;
+}
+.btn.active {
+  background-color: #666;
+  color: white;
+}
+.sidebar {
+  margin-left: 100px;
+  /*height: 100%;  /*Full-height: remove this if you want "auto" height */
+  /*width: 300px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 8; /* Stay on top */
+  margin-top: 70px;
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: rgb(156, 18, 18); /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+.sidebar ul {
+  float: none;
+  display: block;
+}
+.sidebar li {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #444343;
+  display: block;
+}
+.sidebar li:hover {
+  color: #000000;
+  cursor: pointer;
+}
+#wrapper {
+  overflow-x: hidden;
+}
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  border-radius: 5px;
+  background: #fff;
+  color: black;
+  margin-top: 0px;
+  margin-left: 25px;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  position: relative; 
+  float: left;}
+  #sidebar .h6 {
+    color: black; }
+  #sidebar.active {
+    margin-left: -250px; }
+    #sidebar.active .custom-menu {
+      margin-right: -50px; }
+  #sidebar h1 {
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 20px; }
+    #sidebar h1 .logo {
+      color: #fff;
+      display: block;
+      padding: 10px 30px;
+      background: #2f89fc; }
+  #sidebar ul.components {
+    padding: 0; }
+  #sidebar ul li {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px 30px;
+    display: block;
+    color: rgba(54, 53, 53, 0.678);
+    border-bottom: 1px solid rgba(77, 76, 76, 0.1); }
+    #sidebar ul li:hover {
+      color: black;
+      cursor: pointer;
+      /*background: #2f89fc;*/
+    } 
+    #sidebar ul li > ul {
+      margin-left: 10px; }
+      #sidebar ul li > ul li {
+        font-size: 14px; }
+    #sidebar ul li a {
+      padding: 15px 30px;
+      display: block;
+      color: rgba(255, 255, 255, 0.6);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+      #sidebar ul li a:hover {
+        color: #fff;
+        background: #2f89fc;
+        border-bottom: 1px solid #2f89fc; }
+    #sidebar ul li.active > a {
+      background: transparent;
+      color: #fff; }
+      #sidebar ul li.active > a:hover {
+        background: #2f89fc;
+        border-bottom: 1px solid #2f89fc; }
+  @media (max-width: 991.98px) {
+    #sidebar {
+      margin-left: -250px; }
+      #sidebar.active {
+        margin-left: 0; }
+      #sidebar .custom-menu {
+        margin-right: -60px !important;
+        top: 10px !important; } }
+  #sidebar .custom-menu {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    margin-right: -50px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s; }
+    @media (prefers-reduced-motion: reduce) {
+      #sidebar .custom-menu {
+        -webkit-transition: none;
+        -o-transition: none;
+        transition: none; } }
+    #sidebar .custom-menu .btn.btn-primary {
+      background: transparent;
+      border-color: transparent; }
+      #sidebar .custom-menu .btn.btn-primary i {
+        color: black;
+        font-size: 24px; }
+      #sidebar .custom-menu .btn.btn-primary:hover, #sidebar .custom-menu .btn.btn-primary:focus {
+        background: transparent !important;
+        border-color: transparent !important; }
+.colppp {
+  position: relative;
+  margin-top: 2rem;
+  margin-left: 1rem;
+  min-width: 1250px;
+  overflow: hidden;
+}
+.infotable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 90%;
+  /*border : 3px solid rgb(175, 175, 175);*/
+}
+.infotable td, .infotable th {
+  padding: .50rem;
+  font-size: 14px;
+  padding: 8px;
+}
+.htd {
+  width: 36%;
+}
+.datatd {
+  width: 30%;
+}
+.infotable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  /* background-color: #4CAF50;
+  color: white; */
+}
+/* .infotable tr:nth-child(even){background-color: #ffffff; border-bottom : 3px solid rgb(175, 175, 175);}
+.infotable tr:nth-child(odd){background-color: #ffffff; border-bottom : 3px solid rgb(175, 175, 175);}
+.infotable tr:hover {background-color: rgba(33, 150, 243, 0.2);} */
+.panel {
+  width: 100%;
+  font-family: 'Montserrat', sans-serif !important;
+  background-color: inherit;
+  border: 1px solid !important;
+  border-right: 1px solid !important;
+  border-radius: 0 !important;
+  min-height: 32px;
+  margin-bottom: 6px;
+}
+.panel a {
+  color: #33373C;
+  font-family: 'Montserrat', sans-serif;
+}
+.panel a:hover {
+  text-decoration: none;
+}
+.panel .panel-title {
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif !important;
+}
+.panel .panel-body {
+  background-color: white !important;
+  padding: 0 !important;
+  height: 152px !important;
+}
+.panel .panel-heading {
+  background-color: white;
+  padding-left: 16px;
+  padding-top: 16px;
+  padding-bottom: 12px;
+}
+.panel .panel-title {
+  margin: 0 !important;
+}
+.panel .panel-body ul {
+  font-size: 14px !important;
+  padding-top: 5px;
+  padding-inline-start: 0 !important;
+  font-family: 'Montserrat', sans-serif;
+}
+.panel .panel-body ul li {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 8px !important;
+  padding-top: 8px !important;
+  margin-top: 0px !important;
+}
+.panel .panel-body ul li {
+  font-size: 14px !important;
+}
+.panel .panel-body ul li p{
+  font-size: 14px !important;
+}
+.panel .panel-body ul li:hover {
+  background-color: #F2F4F8 !important;
+}
+.panel-collapse {
+  margin-bottom: -156px !important;
+  height: 156px !important;
+  border: 1px solid !important;
+  background-color: white !important;
+  opacity: 1 !important;
+  z-index: 20 !important;
+  position: relative !important;
+}
+.modal.load-filter-modal.fade .modal-dialog {
+  right: -320px;
+  -webkit-transition: opacity 0.9s linear, right 0.9s ease-out;
+     -moz-transition: opacity 0.9s linear, right 0.9s ease-out;
+       -o-transition: opacity 0.9s linear, right 0.9s ease-out;
+          transition: opacity 0.9s linear, right 0.9s ease-out;
+          -webkit-transform: translate3d(0%, 0, 0);
+          -ms-transform: translate3d(0%, 0, 0);
+           -o-transform: translate3d(0%, 0, 0);
+              transform: translate3d(0%, 0, 0);
+}
+.modal.load-filter-modal.fade.in .modal-dialog {
+  right: 0;
+}
