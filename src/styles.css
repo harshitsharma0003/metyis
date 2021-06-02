@@ -1,0 +1,47 @@
+/* @import "~ag-grid/dist/styles/ag-grid.css"; */
+/* @import "~ag-grid/dist/styles/ag-theme-balham.css"; */
+
+
+.canvasjs-chart-credit {
+  display: none;
+}
+
+.canvasjs-chart-toolbar > button {
+  margin-top: -40px;
+  margin-right: -21px;
+  background-color: transparent !important;
+  /* border: 1px solid black !important; */
+}
+
+/* .canvasjs-chart-toolbar > button:hover {
+
+} */
+
+.canvasjs-chart-toolbar button {
+  width: 100px !important;
+
+}
+
+body {
+  background-color: #F8F9FA;
+  font-family: 'Montserrat', sans-serif !important;
+  zoom: 75% !important;
+  /*
+  -webkit-transform: scale(0.75) !important;
+  -webkit-transform-origin: 0 0 !important;
+  transform: scale(0.75) !important;
+  transform-origin: 0 0 !important;
+  -moz-transform: scale(0.75) !important;
+  -moz-transform-origin: 0 0 !important;*/
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+.ag-row-hover {
+  background-color: #F1F4F8 !important;
+}
+
+.ag-column-hover {
+  background-color: #F1F4F8;
+}
