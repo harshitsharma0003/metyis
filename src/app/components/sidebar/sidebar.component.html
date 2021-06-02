@@ -1,0 +1,129 @@
+<div id="sidebar">
+
+<div style="margin-top: 28px;margin-left: 28px;margin-right: 28px;margin-bottom: 30px;">
+  <!-- <div id="logo" class="d-flex justify-content-center" style="margin-bottom: 14px;"> -->
+    <a href="javascript:void(0);" routerLink="/">
+      <!--<img style="height: 40px !important;" src="assets/images/logo.png">-->
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0006 6.75255C11.2555 6.75255 10.659 6.15954 10.659 5.43206V2.75835C10.659 1.78953 9.86664 1 8.87662 1C8.46731 1 8.093 1.15342 7.79039 1.38787C6.62896 2.28945 5.05647 2.54803 3.6414 1.99812C2.43274 1.53268 1.02292 1.98088 0.352998 3.12381C-0.309931 4.27018 -0.00907636 5.69582 1.00368 6.49569C2.19311 7.4283 2.75458 8.89876 2.54469 10.3382C2.49046 10.7174 2.54294 11.1122 2.74934 11.4673C3.2461 12.3017 4.33582 12.5947 5.18241 12.1086L7.53677 10.7674C8.17521 10.4037 8.99381 10.6226 9.36288 11.2536C9.72845 11.8862 9.50981 12.6895 8.86787 13.0533L6.51876 14.3927C5.66692 14.8702 5.37656 15.9546 5.87157 16.7906C6.07622 17.1457 6.40157 17.3854 6.7549 17.525C8.12973 18.0715 9.14249 19.2851 9.36288 20.7659C9.55879 22.0329 10.659 23 12.0006 23C13.3405 23 14.4389 22.0329 14.6296 20.7659C14.8587 19.2851 15.8732 18.0715 17.2411 17.525C17.6014 17.3854 17.9232 17.1457 18.1279 16.7906C18.6211 15.9546 18.3308 14.8702 17.4737 14.3927L15.1228 13.0533C14.4844 12.6895 14.2658 11.8862 14.6366 11.2536C15.0056 10.6226 15.8243 10.4037 16.4609 10.7674L18.8101 12.1086C19.6654 12.5947 20.7569 12.3017 21.2519 11.4673C21.4513 11.1122 21.5072 10.7174 21.4513 10.3382C21.2414 8.89876 21.7994 7.4283 22.9888 6.49569C24.0033 5.69582 24.3164 4.27018 23.643 3.12381C22.9713 1.98088 21.5702 1.53268 20.3546 1.99812C18.9377 2.54803 17.3688 2.28945 16.2073 1.38787C15.9065 1.15342 15.5356 1 15.1141 1C14.1363 1 13.337 1.78953 13.337 2.75835V5.43206C13.337 6.15954 12.737 6.75255 12.0006 6.75255Z" fill="#FFFFFF"/>
+      </svg>          
+    </a>
+  </div>
+  <!-- </div> -->
+
+
+  <div class="aa mt-2 d-flex flex-column">
+    
+
+    <div class="item d-flex flex-column align-items-center mt-3" id="plan" style="background: #212933 !important; margin: 10px !important;">
+      <a class="text-center" href="javascript:void(0);" (click)="goToPage('c')">
+        <!-- <i class="fa pb-1 fa-line-chart"></i> -->
+        <p  style="padding-bottom: 8px;padding-top: 8px;padding-left: 2px;padding-right: 2px;font-family: Montserrat;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 10px;
+        letter-spacing: 0px;
+        text-align: center;
+        " class="m-0">Plan Demand</p>
+      </a>
+    </div>
+    <div class="item d-flex flex-column align-items-center mt-2" id="snop" style="background: #212933;margin: 10px !important;">
+      <a class="text-center" href="javascript:void(0);" (click)="goToPage('a')">
+        <!-- <i class="fa pb-1 fa-bar-chart"></i> -->
+        <p style="padding-bottom: 8px;padding-top: 8px;padding-left: 2px;padding-right: 2px;font-family: Montserrat;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 10px;
+        letter-spacing: 0px;
+        text-align: center;
+        " class="m-0">S&OP Analytics</p>
+        <!-- <p style="padding-bottom: 5px;" class="m-0"></p> -->
+      </a>
+    </div>
+    <div class="item d-flex flex-column align-items-center mt-2" id="planscene" style="background: #212933;margin: 10px !important;">
+      <a class="text-center" href="javascript:void(0);" (click)="goToPage('bcd')">
+        <!-- <i class="fa pb-1 fa-pencil-square-o"></i> -->
+        <p style="padding-bottom: 8px;padding-top: 8px;padding-left: 2px;padding-right: 2px;font-family: Montserrat;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 10px;
+        letter-spacing: 0px;
+        text-align: center;
+        " class="m-0">Plan a Scenario</p>
+        <!-- <p  style="padding-bottom: 5px;" class="m-0"></p> -->
+      </a>
+    </div>
+    <!-- <div class="item d-flex flex-column align-items-center mt-2">
+      <a class="text-center" href="javascript:void(0);" (click)="onClick('revisit-view')">
+        <i class="fa pb-1 fa-repeat"></i>
+        <p class="m-0">Revisit View</p>
+      </a>
+    </div> -->
+    <div class="item d-flex flex-column align-items-center mt-2 justify-content-center" id="portfolio" style="background: #212933;margin: 10px !important;">
+      <a href="javascript:void(0);" (click)="goToPage('ab')" class="text-center">
+        <!-- <i class="fa pb-1 fa-file-text-o"></i> -->
+        <p  style="padding-bottom: 8px;padding-top: 8px;padding-left: 2px;padding-right: 2px;font-family: Montserrat;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 10px;
+        letter-spacing: 0px;
+        text-align: center;
+        " class="m-0 text-center">Portfolio Mgmt</p>
+      </a>
+    </div>
+
+
+    <div class="item d-flex flex-column align-items-center mt-2 justify-content-center" id="npd" style="background: #212933 !important;margin: 10px !important;">
+      <a href="javascript:void(0);" (click)="goToPage('b')" class="text-center">
+        <!-- <i class="fa pb-1 fa-list-ul"></i> -->
+        <p style="padding-bottom: 8px;padding-top: 8px;padding-left: 2px;padding-right: 2px;font-family: Montserrat;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 10px;
+        letter-spacing: 0px;
+        text-align: center;
+        " class="m-0 text-center">NPD</p>
+      </a>
+    </div>
+
+  </div>
+
+  <div class="bb mt-2 d-flex flex-column justify-content-end">
+
+    <div class="mb-2 mt-auto item d-flex flex-column align-items-center" id="setting" (click)="goToPage('e')" style="background: #212933;margin-left: 10px !important;padding-top: 15px;padding-bottom: 10px;"> 
+      <!--<i style="    font-size: 24px;" class="fa  pb-1 fa-cog"></i>-->
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="24" height="24" fill="white" fill-opacity="0.01"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M21.081 8.54267C21.0151 8.36967 20.9444 8.19855 20.869 8.0295L21.4329 7.24248C22.1141 6.30666 22.0024 5.00399 21.1666 4.19254L19.8071 2.83292C19.3608 2.36926 18.7186 2.1124 18.0569 2.14096C17.6147 2.13496 17.1307 2.2901 16.7304 2.58239L15.9441 3.1413C15.7571 3.05725 15.5675 2.97898 15.3757 2.90659L15.2157 1.97142C15.0349 0.864673 14.0894 0.0355318 12.9611 0.000508356L11 2.69402e-05C9.84383 -0.00549228 8.8528 0.837621 8.67221 1.98448L8.50486 2.951C8.33311 3.01756 8.16335 3.08914 7.99581 3.16566L7.22553 2.60935C6.82715 2.3167 6.33733 2.15751 5.835 2.16004C5.21509 2.14905 4.59537 2.39694 4.13794 2.84795L2.78515 4.23079C1.98299 5.03945 1.87374 6.31403 2.53058 7.25317L3.11487 8.07881C3.04002 8.24876 2.96998 8.42079 2.90481 8.59469L1.97144 8.75434C0.837635 8.93278 -0.00547896 9.92381 5.16131e-05 11.0848L4.02668e-05 13C-0.00669544 14.1554 0.83233 15.149 1.97829 15.3369L2.94964 15.4988C3.01613 15.6719 3.08784 15.8429 3.16467 16.0117L2.61158 16.7715C1.94267 17.7293 2.0515 19.0061 2.85878 19.823L4.23293 21.1971C4.69537 21.6531 5.31509 21.901 5.95737 21.8899C6.43628 21.8926 6.92461 21.7299 7.3242 21.4269L8.11492 20.8677C8.26908 20.9365 8.42508 21.001 8.58274 21.0614L8.74399 22.0165C8.90573 23.1063 9.83146 23.9446 10.9516 23.9989L13 24C14.1562 23.9983 15.1401 23.1613 15.3269 22.0218L15.4874 21.071C15.6604 21.0051 15.8315 20.9344 16.0006 20.859L16.7876 21.4229C17.1893 21.7116 17.6741 21.8651 18.1703 21.86C18.7786 21.8877 19.4208 21.6308 19.8803 21.1538L21.2371 19.7971C22.0572 18.9908 22.168 17.6977 21.4923 16.7567L20.928 15.963C21.0026 15.7965 21.0726 15.6281 21.1382 15.4579L22.0965 15.2961C23.2153 15.0532 23.9848 14.1111 23.9999 13.0138L24 11C23.9885 9.85001 23.1573 8.88447 22.0323 8.70327L21.081 8.54267ZM21.7134 10.6777C21.8772 10.7037 21.9984 10.8442 22.0001 11.0101L22 13C21.9978 13.1536 21.8805 13.2973 21.7169 13.333L20.2236 13.584C19.8536 13.6464 19.5498 13.9107 19.4366 14.2684C19.2917 14.7264 19.1068 15.1707 18.8841 15.5963C18.7096 15.9296 18.737 16.3328 18.955 16.6395L19.865 17.9195C19.9684 18.0635 19.9519 18.256 19.8289 18.377L18.4529 19.7529C18.3781 19.8303 18.292 19.8648 18.2032 19.861C18.0795 19.8608 18.0108 19.8391 17.9537 19.798L16.6825 18.8872C16.3753 18.6671 15.9704 18.6389 15.6357 18.8144C15.2093 19.0379 14.7634 19.2222 14.3035 19.365C13.9434 19.4768 13.6768 19.7817 13.614 20.1536L13.354 21.6936C13.3247 21.8721 13.1746 21.9998 12.9985 22L11 22C10.8816 21.9931 10.7437 21.8683 10.7192 21.7031L10.4561 20.1436C10.3931 19.7708 10.1253 19.4653 9.76398 19.3542C9.32284 19.2185 8.89544 19.0417 8.48743 18.826C8.15415 18.6498 7.7501 18.676 7.44237 18.8938L6.14237 19.8138C6.0668 19.8704 6.00683 19.8904 5.94525 19.89C5.81791 19.892 5.71678 19.8515 5.64214 19.7779L4.27715 18.4129C4.1524 18.2867 4.13503 18.0828 4.23999 17.9325L5.1385 16.6986C5.36546 16.3868 5.39294 15.9723 5.20912 15.6333C4.98154 15.2136 4.79621 14.7724 4.65585 14.3161C4.54449 13.954 4.2381 13.6859 3.86444 13.6236L2.30444 13.3636C2.12698 13.3345 1.99899 13.183 2.00002 13.0058L2.00004 11.08C1.99921 10.9024 2.12478 10.7548 2.29558 10.7279L3.82864 10.4657C4.20167 10.4019 4.50672 10.133 4.6168 9.7709C4.75645 9.31155 4.93769 8.86589 5.15826 8.43944C5.32997 8.10747 5.30222 7.70744 5.08631 7.40236L4.16631 6.10236C4.06695 5.96027 4.08401 5.76129 4.21001 5.63426L5.55493 4.25926C5.61678 4.19851 5.71791 4.15806 5.82271 4.15988C5.91807 4.15965 5.98924 4.18278 6.04807 4.22598L7.31455 5.14071C7.62587 5.36555 8.03845 5.39225 8.37616 5.20941C8.795 4.98264 9.23471 4.79672 9.6892 4.65423C10.0467 4.54216 10.3115 4.2397 10.3754 3.87057L10.6454 2.31057C10.6748 2.12476 10.8224 1.99919 10.9953 2.00002L12.93 2.00003C13.0711 2.00489 13.2154 2.13137 13.2431 2.30131L13.5044 3.82863C13.568 4.20054 13.8355 4.50499 14.1962 4.61587C14.6721 4.76221 15.1334 4.95266 15.5739 5.18476C15.9077 5.36059 16.312 5.33364 16.6195 5.11505L17.8995 4.20505C17.9619 4.15954 18.0251 4.13931 18.0897 4.13997C18.232 4.13526 18.3181 4.16973 18.3798 4.23375L19.7629 5.61713C19.8949 5.74542 19.9111 5.9347 19.8115 6.07155L18.8972 7.34758C18.6771 7.65472 18.6489 8.05968 18.8244 8.39433C19.0479 8.82079 19.2322 9.2667 19.375 9.72655C19.4868 10.0867 19.7917 10.3533 20.1636 10.4161L21.7036 10.6761L21.7134 10.6777ZM11.96 16.02C14.1913 16.02 16 14.2113 16 11.98C16 9.7488 14.1913 7.94003 11.96 7.94003C9.72881 7.94003 7.92004 9.7488 7.92004 11.98C7.92004 14.2113 9.72881 16.02 11.96 16.02ZM11.96 14.02C10.8334 14.02 9.92004 13.1067 9.92004 11.98C9.92004 10.8534 10.8334 9.94003 11.96 9.94003C13.0867 9.94003 14 10.8534 14 11.98C14 13.1067 13.0867 14.02 11.96 14.02Z" fill="#FFFFFF"/>
+      </svg>             
+      <!-- <p class="m-0 text-center">Settings</p> -->
+    </div>
+
+
+    <div class="item d-flex flex-column align-items-center mt-2 justify-content-end" id="npd1" style="background: #212933; margin: 10px 10px 18px 10px !important;padding-bottom: 15px;">
+      <a href="javascript:void(0);" (click)="goToPage('f')" class="text-center">
+        <!--<i style="    font-size: 24px;" class="fa  pb-1 fa-sign-out"></i>-->
+        <!-- <p class="m-0 text-center">Logout</p> -->
+
+     
+
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="24" height="24" fill="white" fill-opacity="0.01"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M4.07 19.9H17C17.5799 19.9 18.05 20.3701 18.05 20.95C18.05 21.5299 17.5799 22 17 22H3C2.44772 22 2 21.5523 2 21V2.90002C2 2.34774 2.44772 1.90002 3 1.90002H17C17.5799 1.90002 18.05 2.37013 18.05 2.95002C18.05 3.52992 17.5799 4.00002 17 4.00002H4.07V19.9ZM16.76 6.12002L21.7 11.26C22.0975 11.6772 22.0975 12.3329 21.7 12.75L16.76 17.89C16.5698 18.0896 16.3057 18.2017 16.03 18.2C15.7563 18.1964 15.4961 18.0807 15.31 17.88C14.9125 17.4629 14.9125 16.8072 15.31 16.39L18.52 13.06H7.79C7.20458 13.06 6.73 12.5854 6.73 12C6.73 11.4146 7.20458 10.94 7.79 10.94H18.49L15.28 7.61002C14.8825 7.19287 14.8825 6.53717 15.28 6.12002C15.4661 5.91932 15.7263 5.80366 16 5.80002C16.2876 5.79241 16.5645 5.90901 16.76 6.12002Z" fill="#FFFFFF"/>
+        </svg>     
+     
+      </a>
+    </div>
+  </div>
+  
+</div>
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">

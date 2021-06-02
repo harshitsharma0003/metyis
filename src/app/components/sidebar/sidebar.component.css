@@ -1,0 +1,54 @@
+a {
+  color: white;
+}
+
+p{
+  font-family: 'Montserrat', sans-serif;
+}
+
+a:focus, a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+#sidebar {
+  position: fixed;
+  width: 80px; /*80px*/
+  height: 100%; /*135vh*/
+  background-color: #212933;
+  color: white;
+  z-index: 1;
+}
+
+#sidebar p {
+  font-family: Montserrat;
+font-size: 10px;
+font-style: normal;
+font-weight: 400;
+line-height: 10px;
+letter-spacing: 0px;
+text-align: center;
+padding-top: 5px;
+
+}
+
+.aa {
+  height: 60%;
+}
+
+.bb {
+  height: 32%;
+}
+
+#sidebar .item {
+  width: 56px;
+  height: 56px;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+
+#sidebar .item:hover {
+  background-color: #516074 !important;
+}
